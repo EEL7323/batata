@@ -13,7 +13,17 @@ Widget::Widget(QWidget *parent) :
     connect(mSocket, &QTcpSocket::readyRead, [&]() {
         QTextStream T(mSocket);
         auto text = T.readAll();
-        ui->listWidget->addItem(text);
+
+        if (text == "y"){
+            ui->status->setText("Acesso Liberado");
+        }
+        else if (text == "n"){
+            ui->status->setText("Captcha Incorreto");
+        }
+        else{
+            ui->status->setText("Espere Sua Vez");
+        }
+
     });
 }
 
@@ -24,5 +34,26 @@ Widget::~Widget()
 
 void Widget::on_connect_clicked()
 {
-    mSocket->connectToHost("150.162.198.214", 3333); //Local Host's Address
+    mSocket->connectToHost("192.168.43.195", 80); //Local Host's Address
+
+    if (mSocket == nullptr){
+        return;
+    }
+    QTextStream captcha(mSocket);
+    captcha << ui->captcha_field->text();
+    mSocket->flush();
+
+    QTextStream response(mSocket);
+    auto text = response.readAll();
+
+    if (text == "y"){
+        ui->status->setText("Acesso Liberado");
+    }
+    else if (text == "n"){
+        ui->status->setText("Captcha Incorreto");
+    }
+    else{
+        ui->status->setText("Espere Sua Vez");
+    }
+
 }
