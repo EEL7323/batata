@@ -19,7 +19,7 @@ class bstree
 {
 public:
 	void insert(unsigned int, nodeptr &);
-	void bstree::insertCredits(unsigned int, short int, short int, nodeptr &);
+	void insertCredits(unsigned int, short int, short int, nodeptr &);
 	void del(unsigned int, nodeptr &);
 	unsigned int deletemin(nodeptr &);
 	nodeptr find(unsigned int, nodeptr &);
@@ -33,6 +33,8 @@ public:
 	nodeptr drr(nodeptr &);
 	int max(int, int);
 	int nonodes(nodeptr);
+	void inorder(nodeptr);
+
 };
 // Inserting a node
 void bstree::insert(unsigned int x, nodeptr &p)
@@ -97,7 +99,7 @@ void bstree::insert(unsigned int x, nodeptr &p)
 // Inserting credits in a node
 void bstree::insertCredits(unsigned int x,short int ac,short int cc, nodeptr &p) {
 	if (p == NULL) {
-		cout << "Id não existe.\n";
+		cout << "Id not found.\n";
 	}
 	else {
 		//nodeptr *z = find(x, p);
@@ -105,6 +107,7 @@ void bstree::insertCredits(unsigned int x,short int ac,short int cc, nodeptr &p)
 		find(x, p)->card_credit += cc;
 		//z->app_credit += ac;
 		//z->card_credit += cc;
+		//cout << "\nThe new credit values have been added node\n" << endl;
 	}
 
 }
@@ -291,4 +294,14 @@ int bstree::nonodes(nodeptr p)
 		count++;
 	}
 	return count;
+}
+// Inorder Printing
+void bstree::inorder(nodeptr p)
+{
+	if (p != NULL)
+	{
+		inorder(p->left);
+		cout << p->card_id << "\t";
+		inorder(p->right);
+	}
 }

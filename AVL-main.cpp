@@ -1,7 +1,14 @@
 #include "AVL-header.h"
-
+#include "windows.h"
+#include "psapi.h"
 int main()
 {
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+	SIZE_T virtualMemUsedByMe1 = pmc.PrivateUsage;
+	SIZE_T PhisicalMemUsedByMe1 = pmc.WorkingSetSize;
+	cout << "Virtual memory used now: " << float(virtualMemUsedByMe1) << endl;
+	cout << "Phisical Memory used: " << float(PhisicalMemUsedByMe1) << endl;
 	//clrscr();
 	nodeptr root, root1, min, max;//,flag;
 	int a, choice, findele, delele;
@@ -13,7 +20,16 @@ int main()
 	root1 = NULL;
 	cout << "\n\t\t\t\tWELCOME TO AVL TREE" << endl;
 	cout << "\t\t\t\t:::::::::::::::::::\n" << endl;
-
+	for (unsigned int i = 0; i < 10000; i++)
+	{
+		bst.insert(i, root);
+		bst.insertCredits(i, 10, 10, root);
+	}
+	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+	SIZE_T virtualMemUsedByMe2 = pmc.PrivateUsage;
+	SIZE_T PhisicalMemUsedByMe2 = pmc.WorkingSetSize;
+	cout << "Delta Virtual memory used: " << float(virtualMemUsedByMe2)- float(virtualMemUsedByMe1) << endl;
+	cout << "Delta Phisical Memory used: " << float(PhisicalMemUsedByMe2)- float(PhisicalMemUsedByMe1) << endl;
 	do
 	{
 		cout << "\t\t::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
@@ -53,7 +69,7 @@ int main()
 			cout << "Enter app credit: ";
 			cin >> c;
 			bst.insertCredits(a, c, b, root);
-			cout << "\nThe new credit values have been added node\n" << endl;
+
 			break;
 			/*
 			if (root != NULL)
@@ -63,9 +79,11 @@ int main()
 			}*/
 			break;
 		case 3:
-			if (root != NULL)
-			{
-			}
+			GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+			virtualMemUsedByMe2 = pmc.PrivateUsage;
+			 PhisicalMemUsedByMe2 = pmc.WorkingSetSize;
+			cout << "Virtual memory used now: " << float(virtualMemUsedByMe2) << endl;
+			cout << "Phisical Memory used: " << float(PhisicalMemUsedByMe2) << endl;
 			break;
 		case 4:
 			cout << "\nEnter node to search: ";
@@ -91,6 +109,7 @@ int main()
 			break;
 		case 7:
 			cout << "\n\t\tIN-ORDER TRAVERSAL" << endl;
+			bst.inorder(root);
 			cout << endl;
 			break;
 		case 8:
