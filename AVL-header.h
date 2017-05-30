@@ -7,27 +7,25 @@ using namespace std;
 
 struct node
 {
-	int element;
+	unsigned int card_id;
 	node *left;
 	node *right;
-	int height;
+	unsigned int height;
+	short int card_credit;
+	short int app_credit;
 };
 typedef struct node *nodeptr;
 class bstree
 {
 public:
-	void insert(int, nodeptr &);
-	void del(int, nodeptr &);
-	int deletemin(nodeptr &);
-	void find(int, nodeptr &);
-	nodeptr findmin(nodeptr);
-	nodeptr findmax(nodeptr);
+	void insert(unsigned int, nodeptr &);
+	void bstree::insertCredits(unsigned int, short int, short int, nodeptr &);
+	void del(unsigned int, nodeptr &);
+	unsigned int deletemin(nodeptr &);
+	nodeptr find(unsigned int, nodeptr &);
 	void makeempty(nodeptr &);
 	void copy(nodeptr &, nodeptr &);
 	nodeptr nodecopy(nodeptr &);
-	void preorder(nodeptr);
-	void inorder(nodeptr);
-	void postorder(nodeptr);
 	int bsheight(nodeptr);
 	nodeptr srl(nodeptr &);
 	nodeptr drl(nodeptr &);
@@ -37,12 +35,14 @@ public:
 	int nonodes(nodeptr);
 };
 // Inserting a node
-void bstree::insert(int x, nodeptr &p)
+void bstree::insert(unsigned int x, nodeptr &p)
 {
 	if (p == NULL)
 	{
 		p = new node;
-		p->element = x;
+		p->card_id = x;
+		p->app_credit = NULL;
+		p->card_credit = NULL;
 		p->left = NULL;
 		p->right = NULL;
 		p->height = 0;
@@ -53,12 +53,12 @@ void bstree::insert(int x, nodeptr &p)
 	}
 	else
 	{
-		if (x<p->element)
+		if (x<p->card_id)
 		{
 			insert(x, p->left);
 			if ((bsheight(p->left) - bsheight(p->right)) == 2)
 			{
-				if (x < p->left->element)
+				if (x < p->left->card_id)
 				{
 					p = srl(p);
 				}
@@ -68,12 +68,12 @@ void bstree::insert(int x, nodeptr &p)
 				}
 			}
 		}
-		else if (x>p->element)
+		else if (x>p->card_id)
 		{
 			insert(x, p->right);
 			if ((bsheight(p->right) - bsheight(p->left)) == 2)
 			{
-				if (x > p->right->element)
+				if (x > p->right->card_id)
 				{
 					p = srr(p);
 				}
@@ -94,64 +94,43 @@ void bstree::insert(int x, nodeptr &p)
 	d = max(m, n);
 	p->height = d + 1;
 }
-// Finding the Smallest
-nodeptr bstree::findmin(nodeptr p)
-{
-	if (p == NULL)
-	{
-		cout << "The tree is empty\n" << endl;
-		return p;
+// Inserting credits in a node
+void bstree::insertCredits(unsigned int x,short int ac,short int cc, nodeptr &p) {
+	if (p == NULL) {
+		cout << "Id não existe.\n";
 	}
-	else
-	{
-		while (p->left != NULL)
-		{
-			p = p->left;
-			//return p;
-		}
-		return p;
+	else {
+		//nodeptr *z = find(x, p);
+		find(x, p)->app_credit += ac;
+		find(x, p)->card_credit += cc;
+		//z->app_credit += ac;
+		//z->card_credit += cc;
 	}
+
 }
-// Finding the Largest node
-nodeptr bstree::findmax(nodeptr p)
+// Finding an card_id
+nodeptr bstree::find(unsigned int x, nodeptr &p)
 {
 	if (p == NULL)
 	{
-		cout << "The tree is empty\n" << endl;
+		cout << "Sorry! card_id not found\n" << endl;
 		return p;
 	}
 	else
 	{
-		while (p->right != NULL)
-		{
-			p = p->right;
-			//return p;
-		}
-		return p;
-	}
-}
-// Finding an element
-void bstree::find(int x, nodeptr &p)
-{
-	if (p == NULL)
-	{
-		cout << "Sorry! element not found\n" << endl;
-	}
-	else
-	{
-		if (x < p->element)
+		if (x < p->card_id)
 		{
 			find(x, p->left);
 		}
 		else
 		{
-			if (x>p->element)
+			if (x>p->card_id)
 			{
 				find(x, p->right);
 			}
 			else
 			{
-				cout << "Element found!\n" << endl;
+				return p;
 			}
 		}
 	}
@@ -186,7 +165,7 @@ nodeptr bstree::nodecopy(nodeptr &p)
 	else
 	{
 		temp = new node;
-		temp->element = p->element;
+		temp->card_id = p->card_id;
 		temp->left = nodecopy(p->left);
 		temp->right = nodecopy(p->right);
 		return temp;
@@ -194,18 +173,18 @@ nodeptr bstree::nodecopy(nodeptr &p)
 }
 
 // Deleting a node
-void bstree::del(int x, nodeptr &p)
+void bstree::del(unsigned int x, nodeptr &p)
 {
 	nodeptr d;
 	if (p == NULL)
 	{
-		cout << "Sorry! element not found\n" << endl;
+		cout << "Sorry! card_id not found\n" << endl;
 	}
-	else if (x < p->element)
+	else if (x < p->card_id)
 	{
 		del(x, p->left);
 	}
-	else if (x > p->element)
+	else if (x > p->card_id)
 	{
 		del(x, p->right);
 	}
@@ -232,17 +211,17 @@ void bstree::del(int x, nodeptr &p)
 	}
 	else
 	{
-		p->element = deletemin(p->right);
+		p->card_id = deletemin(p->right);
 	}
 }
 
-int bstree::deletemin(nodeptr &p)
+unsigned int bstree::deletemin(nodeptr &p)
 {
-	int c;
+	unsigned int c;
 	cout << "inside deltemin\n" << endl;
 	if (p->left == NULL)
 	{
-		c = p->element;
+		c = p->card_id;
 		p = p->right;
 		return c;
 	}
@@ -250,37 +229,6 @@ int bstree::deletemin(nodeptr &p)
 	{
 		c = deletemin(p->left);
 		return c;
-	}
-}
-void bstree::preorder(nodeptr p)
-{
-	if (p != NULL)
-	{
-		cout << p->element << "\t";
-		preorder(p->left);
-		preorder(p->right);
-	}
-}
-
-// Inorder Printing
-void bstree::inorder(nodeptr p)
-{
-	if (p != NULL)
-	{
-		inorder(p->left);
-		cout << p->element << "\t";
-		inorder(p->right);
-	}
-}
-
-// PostOrder Printing
-void bstree::postorder(nodeptr p)
-{
-	if (p != NULL)
-	{
-		postorder(p->left);
-		postorder(p->right);
-		cout << p->element << "\t";
 	}
 }
 
