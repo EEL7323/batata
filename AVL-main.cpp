@@ -70,11 +70,14 @@ int main()
 		case 4:
 			cout << "\nEnter node to search: ";
 			cin >> findele;
-			if (root != NULL)
-			{
+			
 				//nodeptr n = bst.find(findele, root);
-				cout << "Element found!\n" << "App credit: " << bst.find(findele, root)->app_credit << "\nCard Credit: " << bst.find(findele, root)->card_credit << endl;
-			}
+				if (bst.find(findele, root) == NULL) {
+					cout << "Element not found!\n";
+				}
+				else {
+					cout << "Element found!\n" << "App credit: " << bst.find(findele, root)->app_credit << "\nCard Credit: " << bst.find(findele, root)->card_credit << endl;
+				}
 			break;
 		case 5:
 			cout << "\nEnter node to delete: ";

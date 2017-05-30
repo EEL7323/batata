@@ -113,20 +113,20 @@ nodeptr bstree::find(unsigned int x, nodeptr &p)
 {
 	if (p == NULL)
 	{
-		cout << "Sorry! card_id not found\n" << endl;
-		return p;
+//		cout << "Sorry! card_id not found\n" << endl;
+		return NULL;
 	}
 	else
 	{
 		if (x < p->card_id)
 		{
-			find(x, p->left);
+			return find(x, p->left);
 		}
 		else
 		{
 			if (x>p->card_id)
 			{
-				find(x, p->right);
+				return find(x, p->right);
 			}
 			else
 			{
