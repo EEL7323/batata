@@ -1,1 +1,2 @@
-// JavaScript source code
+angular.module("ruServer", ["ngRoute"]);
+{{1+1}}
