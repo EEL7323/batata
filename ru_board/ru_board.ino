@@ -1,20 +1,21 @@
 #include <connection.h>
+#include "captcha.h"
 
-const char* ssid = "steins";
-const char* password = "12345678";
+//Set connection parameters
+//const char* ssid = "steins";
+//const char* password = "12345678";
+const char* ssid = "GVT-5527";
+const char* password = "J445143561";
 
-int ledPin = 2; // GPIO13
-
-IPAddress cell_ip(192, 168, 15, 201);
-int cell_port = 80;
-connection cell_conn(cell_port);
+int server_port = 8888;
+connection serverForApp(server_port);
+captcha nearCode;
 
 void setup() {
+	//Start serial with 115200 baudrate
 	Serial.begin(115200);
+	//Wait 10ms for serial to start
 	delay(10);
-
-	pinMode(ledPin, OUTPUT);
-	digitalWrite(ledPin, LOW);
 
 	// Connect to WiFi network
 	Serial.println();
@@ -32,54 +33,42 @@ void setup() {
 	Serial.println("WiFi connected");
 
 	// Start the server
-	cell_conn.startServer();
+	serverForApp.startServer();
 	Serial.println("Server started");
 
 	// Print the IP address
-	Serial.print("Use this URL to connect: ");
-	Serial.print("http://");
+	Serial.print("My IPv4 is: ");
 	Serial.print(WiFi.localIP());
-	Serial.println("/");
+	Serial.println("");
 
 }
-
+String code = "";
 String request = "";
-String captcha = "";
 void loop() {
 	// Check if a client has connected
-
-	captcha = "12345";
-	//captcha = String(rand());
-	Serial.println(captcha);
-
-	while (!cell_conn.checkForClient());
-
-
-
-
-	while (request == "")
+	if (!serverForApp.checkForClient())
 	{
-		request = cell_conn.requestFromClient();
+		code = nearCode.newCaptcha();
+		Serial.println(code);
+		while (request == "")
+		{
+			request = serverForApp.requestFromClient();
+		}
+		Serial.println(request);//debug feature
+		if (nearCode.checkCaptcha(request)) {
+			Serial.println("y");
+			serverForApp.write2Client("y");
+		}
+		else {
+			Serial.println("n");
+			serverForApp.write2Client("n");
+		}
+		delay(1);
+		Serial.println("Client disonnected");
+		Serial.println("");
+		request = "";
 	}
-
-	Serial.println(request);
-
-	if (request == captcha) {
-		Serial.println("y");
-		cell_conn.write2Client("y");
-	}
-	else {
-		Serial.println("n");
-		cell_conn.write2Client("n");
-	}
-
-
-
-	// Return the response
-	//cell_conn.write2Client(request);
-
-	delay(1);
-	Serial.println("Client disonnected");
-	Serial.println("");
-	request = "";
+	
+	
 }
+
