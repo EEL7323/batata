@@ -1,0 +1,36 @@
+// connection.h
+
+#ifndef _CONNECTION_h
+#define _CONNECTION_h
+
+#if defined(ARDUINO) && ARDUINO >= 100
+	#include "arduino.h"
+#else
+	#include "WProgram.h"
+#endif
+
+
+#include "Server.h"
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+
+
+class connection : public WiFiServer
+{
+	WiFiClient app;
+	bool status;
+	int port;
+public:
+
+	connection(int set_port);
+	~connection();
+	void startServer();
+	bool getStatus();
+	int checkForClient();
+	String requestFromClient();
+	void write2Client(String value);
+};
+
+
+#endif
+
