@@ -25,7 +25,7 @@ private slots:
 
     void on_IP_field_editingFinished();
 
-    void on_captcha_field_cursorPositionChanged(int arg1, int arg2);
+    void on_port_field_editingFinished();
 
 private:
     Ui::Widget *ui;

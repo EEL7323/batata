@@ -105,3 +105,8 @@ void Widget::on_IP_field_editingFinished()
 {
     ui->IP_status->setText("Usando "+ui->IP_field->text()+":"+ui->port_field->text());
 }
+
+void Widget::on_port_field_editingFinished()
+{
+    ui->IP_status->setText("Usando "+ui->IP_field->text()+":"+ui->port_field->text());
+}
