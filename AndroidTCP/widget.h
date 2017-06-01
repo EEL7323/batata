@@ -21,6 +21,12 @@ public:
 private slots:
     void on_connect_clicked();
 
+    void on_captcha_field_editingFinished();
+
+    void on_IP_field_editingFinished();
+
+    void on_captcha_field_cursorPositionChanged(int arg1, int arg2);
+
 private:
     Ui::Widget *ui;
     QTcpSocket *mSocket;
