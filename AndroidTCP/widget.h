@@ -21,11 +21,15 @@ public:
 private slots:
     void on_connect_clicked();
 
-    void on_captcha_field_editingFinished();
-
     void on_IP_field_editingFinished();
 
     void on_port_field_editingFinished();
+
+    void on_IP_field_returnPressed();
+
+    void on_port_field_returnPressed();
+
+    void on_captcha_field_returnPressed();
 
 private:
     Ui::Widget *ui;

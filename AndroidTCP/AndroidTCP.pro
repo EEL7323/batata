@@ -8,7 +8,7 @@ QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = AndroidTCP
+TARGET = PotatoTCP
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -31,6 +31,19 @@ HEADERS  += widget.h
 FORMS    += widget.ui
 
 CONFIG += mobility
-MOBILITY = 
+MOBILITY =
 
 QMAKE_CXXFLAGS += -std=gnu++11
+
+RC_FILE = myapp.rc
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
