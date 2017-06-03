@@ -17,7 +17,7 @@ captcha::~captcha()
 }
 String captcha::newCaptcha()
 {
-	curr_captcha = String(random(0, 99999));
+	curr_captcha = String(random(10000, 99999));
 	return curr_captcha; 
 }
 bool captcha::checkCaptcha(String message)

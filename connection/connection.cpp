@@ -54,8 +54,8 @@ int connection::checkForClient()
 
 String connection::requestFromClient()
 {
-	String request = client.readStringUntil('\t');
-	client.flush();
+	String request = app.readStringUntil('\t');
+	app.flush();
 	return request;
 }
 
@@ -66,16 +66,16 @@ String connection::requestFromClient()
 */
 void connection::write2Client(String value)
 {
-	WiFiClient ru_server;
-	WiFiClient ru_server2;
-	ru_server.connect("192.168.43.108", 1414);
-	ru_server2.connect("192.168.43.68", 8080);
+	//WiFiClient ru_server;
+	//WiFiClient ru_server2;
+	//ru_server.connect("192.168.43.108", 1414);
+	//ru_server2.connect("192.168.43.68", 8080);
 
-	ru_server.print("Um usuario entrou");
-	ru_server2.print("Um usuario entrou");
+	//ru_server.print("Um usuario entrou");
+	//ru_server2.print("Um usuario entrou");
 
-	String resposta = ru_server.readStringUntil('/t');
-	Serial.println(resposta);
+	//String resposta = ru_server.readStringUntil('/t');
+	//Serial.println(resposta);
 
 	app.print(value);
 }
