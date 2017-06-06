@@ -1,0 +1,93 @@
+//login:
+> Página inicial
+    > título: "Welcome to UFSC's Refectory (RU) Server. Please login with your RU account"
+    > [Campo de matrícula]
+    > [Campo de senha]
+	> (checkbox "Remember me")
+    > (botão login)
+    
+//admin-home
+> Página principal home que depende do tipo de usuário
+    > barra de navegação: (Home) - (Manage Credits) - (Manage Users) - (View log)
+    > "Bem vindo, %Nome"
+    > "%Matrícula"
+    > "Status"
+    > "%Número de pessoas no RU"
+    > "%Número de usuários cadastrados"
+    > (botão atualizar)
+    
+//admin-manage-credits	
+> Página de compra de passes para estudantes
+    > barra de navegação: (Home) - (Manage Credits) - (Manage Users) - (View log)
+    > [Campo de filtro de busca]
+	> Tabela-headers: checkbox, name, registry number, phone credit, card credit
+    > Tabela-data-repeat: [Checkbox], %name, %registry number, %phone credit, %card credit
+    > [Campo de inserção de crédito no celular]
+	> [Campo de inserção de crédito no cartão]
+	> (botão confirmar)
+
+//admin-manage-users	
+> Página de acesso às informações dos estudantes
+    > barra de navegação: (Home) - (Manage Credits) - (Manage Users) - (View log)
+    > [Campo de filtro de busca]
+	> Tabela-headers: checkbox, name, registry number, tag number, credits, access level
+    > Tabela-data-repeat: [Checkbox], %name, %registry number, %tag number, %credits, %access level
+	> (botão inserir usuario)
+	> (botão editar usuario)
+	> (botão apagar usuario(s))
+    
+//admin-edit-user
+> Página que edita informações dos usuários
+    > barra de navegação: (Home) - (Manage Credits) - (Manage Users) - (View log)
+	[Campo de inserção de nome]
+	[Campo de inserção de matrícula]
+	[Campo de inserção de numero do cartão]
+	[Campo de inserção de tipo de usuário]
+    > (botão salvar)
+	> (botão cancelar)
+
+//admin-view-logs	
+> Página de acesso às informações de eventos no servidor
+    > barra de navegação: (Home) - (Manage Credits) - (Manage Users) - (View log)
+    > [Campo de filtro de busca]
+	> Tabela-headers: event ID, event source,	event target,	event type,  phone Δ$, card Δ$, to be resolved by board, time
+    > Tabela-data-repeat: %event ID, %event source,	%event target,	%event type,  %phone Δ$, %card Δ$, %to be resolved by board, %time
+	> (botão apagar logs)
+
+//user-home
+> Página principal home que depende do tipo de usuário
+    > barra de navegação: (Home) - (Add Credits) - (View log) - (Change password)
+    > "Bem vindo, %Nome"
+    > "%Matrícula"
+    > "%Número de pessoas no RU"
+	> Horário de funcionamento do RU
+    > (botão atualizar)
+	
+//user-view-logs	
+> Página de acesso às informações de eventos no servidor
+    > barra de navegação: (Home) - (Add Credits) - (View log) - (Change password)
+    > [Campo de filtro de busca]
+	> Tabela-headers: event ID, event source, event type, phone Δ$, card Δ$, to be resolved by board, time
+    > Tabela-data-repeat: %event ID, %event source,	%event type, %phone Δ$, %card Δ$, %to be resolved by board, %time
+	> (botão apagar logs)
+	
+//user-add-credits
+> Página que insere créditos para o usuário
+    > barra de navegação: (Home) - (Manage Credits) - (Manage Users) - (View log)
+    > [Campo de inserção de crédito no celular]
+	> [Campo de inserção de crédito no cartão]
+	> [Campo de inserção do Número do cartão]
+    > [Campo de inserção do Número de segurança] | [Campo de inserção de Validade]
+    > [Campo de inserção do Nome no Cartão]
+	> (botão confirmar)
+	
+//user-change-password
+> Página que edita a senha dos usuários
+    > barra de navegação: (Home) - (Manage Credits) - (Manage Users) - (View log)
+	[Campo de inserção de senha antiga]
+	[Campo de inserção de senha nova]
+	[Campo de confirmação de senha nova]
+    > (botão salvar)
+	> (botão cancelar)
+	
+
