@@ -1,0 +1,55 @@
+// Interface Gráfica do Aplicativo Batata
+//
+// Simbologia:
+// {___}   : aba
+// {*___*} : aba_selecionada
+// "___"   : texto_fixo
+// "%___"  : texto_variável
+// [___]   : campo_de entrada
+// (___)   : botão
+// |       : separador
+
+//login:
+>Página inicial
+	>título: "Login"
+	>[campo de matrícula]
+	>[campo de senha]
+	>(botão login)
+	
+//após login
+>Página principal Informações do usuário {Info}
+	> barra de navegação: {*Info*} - {Compra} - {Histórico} - {Catraca}
+	> título: "Informações"
+	> "%Nome"
+	> "%Matrícula"
+	> "%Créditos APP" | "%Créditos Cartão"
+	> "%Pessoas no RU"
+	> "%Última transação"
+	> (botão atualizar)
+	
+> Página de compra de passes {Compra}
+	> barra de navegação: {Info} - {*Compra*} - {Histórico} - {Catraca}
+	> título: "Compra de passes para o Celular"
+	> "%Créditos APP" | "%Créditos Cartão"
+	> "Número do cartão" [campo de nº]
+	> "Número de segurança" [campo de nº] | "Validade" [campo de validade]
+	> "Nome no Cartão" [campo do nome]
+	> "Quantidade de passes" [campo de quantia]
+	> "%Preço final"
+	> (botão confirmar)
+	
+> Página de histórico de eventos do aluno {Histórico}
+	> barra de navegação: {Info} - {Compra} - {*Histórico*} - {Catraca}
+	> título: "Histórico de Eventos"
+	> "Eventos do aluno" "%Nome"
+	> "%ID" | "%Tipo de Evento" | "%delta Créditos APP" | "%delta Créditos Cartão" | "%Horário do Evento"
+	> "%Saldo Atual APP" | "%Saldo Atual Cartão" | "%Última Atualização"
+	>(botão atualizar)
+	
+> Página de Acesso e Saída do RU {Catraca}
+	> barra de navegação: {Info} - {Compra} - {Histórico} - {*Catraca*}
+	> título: "Catraca"
+	> "Entrou como" "%Nome"
+	> "Insira o Captcha da Catraca" [campo captcha]
+	> "%Sucesso?"
+	> (botão solicitar acesso)
