@@ -17,6 +17,10 @@ angular.module("ruServer").config(function ($routeProvider) {
             templateUrl: "view/admin/admin-manage-users.html",
             controller: "adminManageUsersCtrl"
         })
+        .when("/admin/manage-users/edit-user", {
+            templateUrl: "view/admin/admin-edit-user.html",
+            controller: "adminEditUserCtrl"
+        })
         .when("/admin/log", {
             templateUrl: "view/admin/admin-view-log.html",
             controller: "adminLogCtrl"

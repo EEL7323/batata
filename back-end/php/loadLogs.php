@@ -7,22 +7,24 @@
 
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {
-		$sql = "SELECT name, registry_number, cellphone_credit, card_credit FROM users WHERE access_level = 1";
+		$sql = "SELECT * FROM events";
 		$result = $conn->query($sql);
 		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->connect_error;
 		else {
 			$resultsFound = $result->num_rows;
-
-			if ($resultsFound > 0) {
+			if ($resultsFound > 0) {				
 				$i = 0;
 				echo "[";
 				while($row = $result->fetch_assoc()) {
-				$return["name"] = $row["name"];
-				$return["registryNumber"] = $row["registry_number"];
-				$return["cellphoneCredit"] = $row["cellphone_credit"];
-				$return["cardCredit"] = $row["card_credit"];
-				$return["id"] = $i;
 				$i = $i + 1;
+				$return["id"] = $row["event_id"];
+				$return["sourceId"] = $row["source_registry"];
+				$return["targetId"] = $row["target_registry"];
+				$return["type"] = $row["event_type"];
+				$return["diffCredCellphone"] = $row["diff_cred_cellphone"];
+				$return["diffCredTag"] = $row["diff_cred_tag"];
+				$return["toResolve"] = $row["to_resolve"];
+				$return["time"] = $row["event_time"];
 				echo json_encode($return);
 				if ($i != ($resultsFound)) echo ",";
 				}

@@ -10,7 +10,7 @@
 
 	if ($conn->connect_error) echo ("Authentication error - Connection failed: " . $conn->connect_error);
 	else {
-		$sql = "SELECT tag_number FROM user_status WHERE web_token='$token'";
+		$sql = "SELECT tag_number FROM users WHERE web_token='$token'";
 		$result = $conn->query($sql);
 		if ($conn->error) echo "Authentication error - Server error while consulting database: " . $conn->connect_error;
 		else {
@@ -18,7 +18,7 @@
 			if ($resultsFound == 1) {
 				$result = $result->fetch_assoc();
 				$tag_number = $result['tag_number'];
-				$sql = "SELECT name, registry_number, tag_number FROM user_records WHERE tag_number='$tag_number'";
+				$sql = "SELECT name, registry_number, tag_number FROM users WHERE tag_number='$tag_number'";
 				$result = $conn->query($sql);
 				if ($conn->error) echo "Authentication error - Server error while consulting database: " . $conn->connect_error;
 				else {

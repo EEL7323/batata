@@ -33,15 +33,14 @@ angular.module("ruServer").controller("loginCtrl", function ($scope, $http, $loc
                 if (response.data.startsWith("Authentication error")) {
                     $scope.isLoginError = true;
                     $scope.errorText = "Authentication error. Please verify if you typed your registry number and your password correctly and try again. If the error persists, contact RU administration.";
-                    localStorage.setItem("ruServerToken", "invalid");
+                    localStorage.setItem("ruServer", "invalid");
                     $rootScope.showNavMenu = false;
                 }
                 else {
                     $scope.isLoginError = false;
                     $scope.errorText = "Login successful. You will be redirected to homepage.";
-                    localStorage.setItem("ruServerToken", response.data);
+                    localStorage.setItem("ruServer", response.data);
                     var _accessLevel = response.data.slice(7, 8);
-                    console.log(_accessLevel);
                     if (_accessLevel == 0) {
                         $location.path("/admin");
                         $rootScope.showNavMenu = true;

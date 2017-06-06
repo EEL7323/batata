@@ -1,8 +1,6 @@
 angular.module("ruServer").controller("mainCtrl", function ($scope, authenticationService, $location, $rootScope) {
 
-    var _token = localStorage['ruServerToken'];
-
-    $rootScope.teste;
+    var _token = localStorage['ruServer'];
 
     authenticationService.checkToken(_token)
         .then(function (response) {

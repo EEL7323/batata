@@ -7,7 +7,7 @@
 
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {
-		$sql = "SELECT name, registry_number, cellphone_credit, card_credit FROM users WHERE access_level = 1";
+		$sql = "SELECT name, registry_number, tag_number, cellphone_credit, card_credit, access_level FROM users";
 		$result = $conn->query($sql);
 		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->connect_error;
 		else {
@@ -19,8 +19,10 @@
 				while($row = $result->fetch_assoc()) {
 				$return["name"] = $row["name"];
 				$return["registryNumber"] = $row["registry_number"];
+				$return["tagNumber"] = $row["tag_number"];
 				$return["cellphoneCredit"] = $row["cellphone_credit"];
 				$return["cardCredit"] = $row["card_credit"];
+				$return["accessLevel"] = $row["access_level"];
 				$return["id"] = $i;
 				$i = $i + 1;
 				echo json_encode($return);

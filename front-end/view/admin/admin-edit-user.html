@@ -1,0 +1,18 @@
+﻿<div class="container jumbotron">
+    <h3 class="text-center">{{editUserTitle}}</h3>
+    <form name="editUserForm">
+        <input class="form-control margin-min" type="text" ng-model="user.name" name="name" placeholder="Name" ng-required="true" />
+        <input class="form-control margin-min" type="number" ng-model="user.tagNumber" name="tagNumber" placeholder="Tag Number" ng-required="true" />
+        <input class="form-control margin-min" type="text" ng-model="user.registryNumber" name="registryNumber" placeholder="Registry Number" ng-disabled="getMethod() == 'update'"/>        
+        <select class="form-control margin-min" ng-model="user.accessLevel" ng-required="true" name="accessLevel">
+            <option value="">Select a type of user</option>
+            <option value="1">Student</option>
+            <option value="0">Server</option>
+        </select>
+    </form>
+    <hr />
+    <div class="row">
+        <div class="col-sm-6"><a class="btn btn-primary btn-block" ng-click="saveUser(user)">Save</a></div>
+        <div class="col-sm-6"><a class="btn btn-danger btn-block" href="#!/admin/manage-users">Cancel</a></div>
+    </div>
+</div>

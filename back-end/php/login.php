@@ -9,7 +9,7 @@
 
 	$conn = new mysqli($serverName, $userName, $password, $dbName);
 
-	$sql = "SELECT tag_number, access_level FROM user_records WHERE registry_number='$userRegistry' AND password='$userPassword'";
+	$sql = "SELECT tag_number, access_level FROM users WHERE registry_number='$userRegistry' AND password='$userPassword'";
 
 	// Try to connect
 	if ($conn->connect_error) echo("Authentication error - Connection failed: " . $conn->connect_error);
@@ -19,9 +19,9 @@
 		$resultsFound = $result->num_rows;
 		if ($resultsFound == 1) {
 			$result = $result->fetch_assoc();
-			$token = random(7) . $result["access_level"] . random(8);
+			$token = random(7) . $result["access_level"] . random(8) . " | " . $userRegistry;
 			$tag_number = $result['tag_number'];
-			$sql = "UPDATE user_status SET web_token='$token' WHERE tag_number='$tag_number'";
+			$sql = "UPDATE users SET web_token='$token' WHERE tag_number='$tag_number'";
 			$conn->query($sql);
 			if ($conn->error) echo "Authentication error - Server error while updating user";
 			else echo $token;

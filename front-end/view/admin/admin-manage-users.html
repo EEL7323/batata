@@ -1,1 +1,35 @@
-﻿<div>This is admin manage users!</div>
+﻿<div class="container jumbotron">
+    <hr />
+    <input class="form-control" type="text" ng-model="searchCriteria" placeholder="What are you looking for?" />
+    <hr />
+    <table class="table" ng-if="users.length > 0">
+        <tr>
+            <th><input type="checkbox" class="toggle" ng-model="uncheckedAll" ng-click="uncheckAll()" /></th>
+            <th>Name</th>
+            <th>Registry number</th>
+            <th>Tag number</th>
+            <th>Credits</th>
+            <th>Access Level</th>
+        </tr>
+        <tr ng-class="" ng-repeat="user in users | filter:searchCriteria">
+            <td style="vertical-align: middle; width: 5px"><input type="checkbox" ng-model="user.checked" /></td>
+            <td style="vertical-align: middle">{{user.name}}</td>
+            <td style="vertical-align: middle">{{user.registryNumber}}</td>
+            <td style="vertical-align: middle">{{user.tagNumber}}</td>
+            <td style="vertical-align: middle">{{user.cellphoneCredit*1 + user.cardCredit*1}}</td>
+            <td style="vertical-align: middle">{{user.accessLevel}}</td>
+        </tr>
+    </table>
+    <hr />
+    <div class="row">
+        <div class="col-sm-4">
+            <a class="btn btn-primary btn-block" ng-click="isChecked(users) || insertUser(users)" ng-disabled="isChecked(users)">Insert User</a>
+        </div>
+        <div class="col-sm-4">
+            <a class="btn btn-warning btn-block" ng-click="!isChecked(users) || countChecked(users) > 1 || editUser(users)" ng-disabled="!isChecked(users) || countChecked(users) > 1">Edit User</a>
+        </div>
+        <div class="col-sm-4">
+        <a class="btn btn-danger btn-block" ng-click="!isChecked(users) || deleteUsers(users)" ng-disabled="!isChecked(users)">Delete User(s)</a>
+        </div>
+    </div>
+</div>

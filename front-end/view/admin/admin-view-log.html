@@ -1,1 +1,29 @@
-﻿<div>This is admin view log!</div>
+﻿<div class="container jumbotron">
+    <hr />
+    <input class="form-control" type="text" ng-model="searchCriteria" placeholder="What are you looking for?" />
+    <hr />
+    <table class="table" ng-if="true">
+        <tr>
+            <th ng-if="bigScreen">Event ID</th>
+            <th ng-if="bigScreen">Event Source</th>
+            <th>Event Target</th>
+            <th>Event type</th>
+            <th>Phone &#916$</th>
+            <th>Card &#916$</th>
+            <th ng-if="bigScreen">To be resolved by board</th>
+            <th>Time</th>
+        </tr>
+        <tr ng-class="" ng-repeat="log in logs | filter:searchCriteria">
+            <td ng-if="bigScreen" style="vertical-align: middle">{{log.id}}</td>
+            <td ng-if="bigScreen" style="vertical-align: middle">{{log.sourceId}}</td>
+            <td style="vertical-align: middle">{{log.targetId}}</td>
+            <td style="vertical-align: middle">{{log.type}}</td>
+            <td style="vertical-align: middle">{{log.diffCredCellphone}}</td>
+            <td style="vertical-align: middle">{{log.diffCredTag}}</td>
+            <td ng-if="bigScreen" style="vertical-align: middle">{{log.toResolve}}</td>
+            <td style="vertical-align: middle">{{log.time | date: "HH:mm dd/MM"}}</td>
+        </tr>
+    </table>
+    <hr />
+    <a class="btn btn-danger btn-block" ng-click="clearLogs()">Clear log history</a>
+</div>
