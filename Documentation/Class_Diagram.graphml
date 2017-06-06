@@ -82,34 +82,6 @@ int consultar # de pessoas(void)
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
-              <y:Geometry height="151.75000000000006" width="188.0" x="1211.2468872070312" y="-184.66015625000009"/>
-              <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
-              <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="53.130859375" x="67.4345703125" y="3.0">Gerente<y:LabelModel>
-                  <y:SmartNodeLabelModel distance="4.0"/>
-                </y:LabelModel>
-                <y:ModelParameter>
-                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
-                </y:ModelParameter>
-              </y:NodeLabel>
-              <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>-login
--senha
-</y:AttributeLabel>
-                <y:MethodLabel>void cadastrar aluno(int matricula)
-void cadastrar gerente(int login)
-void remover aluno(int matricula)
-void remover gerente(int login)
-Aluno checar aluno(int matricula)
-</y:MethodLabel>
-              </y:UML>
-            </y:UMLClassNode>
-          </data>
-        </node>
-        <node id="n0::n2">
-          <data key="d4"/>
-          <data key="d6">
-            <y:UMLClassNode>
               <y:Geometry height="211.75" width="415.08333333333303" x="984.1635538736982" y="116.58642578125"/>
               <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
               <y:BorderStyle color="#808080" type="line" width="2.0"/>
@@ -137,11 +109,11 @@ int sincronização sincronizar(void)</y:MethodLabel>
             </y:UMLClassNode>
           </data>
         </node>
-        <node id="n0::n3">
+        <node id="n0::n2">
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
-              <y:Geometry height="203.9375" width="309.25" x="766.1635538736982" y="-184.66015625000009"/>
+              <y:Geometry height="203.9375" width="309.25" x="927.4389905938409" y="-184.66015625000009"/>
               <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
               <y:BorderStyle color="#808080" type="line" width="2.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="136.93896484375" x="86.155517578125" y="3.0">Conexão com a placa<y:LabelModel>
@@ -152,7 +124,7 @@ int sincronização sincronizar(void)</y:MethodLabel>
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>-ip
+                <y:AttributeLabel>-url
 -status
 -protocolo
 -duração (timeout)
@@ -176,14 +148,14 @@ bool flag solicitar acesso ao RU (int matricula)
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="685.7833398437499" width="945.9531249999998" x="1508.1406250000002" y="-23.37646484374997"/>
+              <y:Geometry height="685.7833398437499" width="945.953125" x="1508.140625" y="-23.37646484374997"/>
               <y:Fill color="#FFBBBB" transparent="false"/>
               <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
-              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#FF9999" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="945.9531249999998" x="0.0" y="0.0">Firmware</y:NodeLabel>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#FF9999" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="945.953125" x="0.0" y="0.0">Firmware</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
-              <y:BorderInsets bottom="47" bottomF="47.3599999999999" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+              <y:BorderInsets bottom="12" bottomF="12.115416755793035" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
             </y:GroupNode>
             <y:GroupNode>
               <y:Geometry height="50.0" width="50.0" x="1565.640625" y="-23.37646484374997"/>
@@ -206,7 +178,7 @@ bool flag solicitar acesso ao RU (int matricula)
               <y:Geometry height="225.55664062499994" width="277.7265625" x="1523.1406250000002" y="14.000000000000028"/>
               <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
               <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="40.82275390625" x="118.451904296875" y="3.0">Aluno<y:LabelModel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="52.3818359375" x="112.67236328125" y="3.0">Student	<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
                 <y:ModelParameter>
@@ -214,21 +186,14 @@ bool flag solicitar acesso ao RU (int matricula)
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>-matrícula
--id cartão
--créditos (celular)
--créditos (cartão)
-+status (dentro do RU?)
--compras (cartão)
--compras (celular)
--passes usados
-</y:AttributeLabel>
-                <y:MethodLabel>void Get (int atributo)
-void Sets (int atributo)
-void Debitar crédito (bool mode, int matricula)
-void Acrescentar crédito (bool mode, int matricula)
-
-</y:MethodLabel>
+                <y:AttributeLabel>+unsigned int card_id;
++student* left;
++student* right;
++unsigned short int height;
++unsigned short int card_credit;
++unsigned short int app_credit;
+    </y:AttributeLabel>
+                <y:MethodLabel>student();</y:MethodLabel>
               </y:UML>
             </y:UMLClassNode>
           </data>
@@ -237,10 +202,10 @@ void Acrescentar crédito (bool mode, int matricula)
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
-              <y:Geometry height="237.152099609375" width="257.1000623274008" x="1523.1406250000002" y="362.894775390625"/>
+              <y:Geometry height="309.73915795756295" width="477.3787076036931" x="1523.140625" y="325.5523002866439"/>
               <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
               <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="53.130859375" x="101.9846014762004" y="3.0">Gerente<y:LabelModel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="31.4599609375" x="222.95937333309655" y="3.0">Tree<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
                 <y:ModelParameter>
@@ -248,19 +213,24 @@ void Acrescentar crédito (bool mode, int matricula)
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>+# de alunos no RU
-+alunos cadastrados
--id sincronização
-+tempo para sincronizar
-+horário de funcionamento
-</y:AttributeLabel>
-                <y:MethodLabel>void Cadastrar aluno(void)
-void remover aluno(int matricula)
-char status verificar conexão(int *handler)
-void verificar horário de funcionamento(void)
-verificar aluno(int matricula)
-void atualizar aluno(int matricula, int atributo)
-</y:MethodLabel>
+                <y:AttributeLabel> student *root;</y:AttributeLabel>
+                <y:MethodLabel>bool insert(unsigned int, unsigned short int, unsigned short int, student* &amp;);
+    bool insertCredits(unsigned int, unsigned short int, unsigned short int, student* &amp;);
+    bool debitCredits(unsigned int, char, student* &amp;);
+    void del(unsigned int, student* &amp;);
+    unsigned int deletemin(student* &amp;);
+    student* find(unsigned int, student* &amp;);
+    void makeempty(student* &amp;);
+    void copy(student* &amp;, student* &amp;);
+    student* nodecopy(student* &amp;);
+    unsigned short int bsheight(student*);
+    student* srl(student* &amp;);
+    student* drl(student* &amp;);
+    student* srr(student* &amp;);
+    student* drr(student* &amp;);
+    int max(int, int);
+    void inorder(student*);
+    bstree();</y:MethodLabel>
               </y:UML>
             </y:UMLClassNode>
           </data>
@@ -272,7 +242,7 @@ void atualizar aluno(int matricula, int atributo)
               <y:Geometry height="225.55664062499994" width="309.25" x="1828.3671875" y="14.000000000000028"/>
               <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
               <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="134.76806640625" x="87.240966796875" y="3.0">Conexão com celular<y:LabelModel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="75.49365234375" x="116.878173828125" y="3.0">Connection<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
                 <y:ModelParameter>
@@ -281,55 +251,19 @@ void atualizar aluno(int matricula, int atributo)
               </y:NodeLabel>
               <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
                 <y:AttributeLabel>-ip
+-port
 -status
-+protocolo
--matrícula
 </y:AttributeLabel>
-                <y:MethodLabel>void conectar(int *handler)
-void desconectar(int *handler)
-*message preparar mensagem no protocolo (&amp;message
-void enviar msg (void)
-void receber msg (void)
-bool flag Liberar acesso ao RU (matricula)
-void Debitar créditos (bool mode, int matricula)
-void Acrescentar créditos (bool mode, int matricula)
-</y:MethodLabel>
+                <y:MethodLabel>void conectar()
+void iniciar_servidor(port)
+void enviar msg (bool, String)
+String receber msg (void)
+void Debitar créditos (bool mode, int matricula)</y:MethodLabel>
               </y:UML>
             </y:UMLClassNode>
           </data>
         </node>
         <node id="n1::n3">
-          <data key="d4"/>
-          <data key="d6">
-            <y:UMLClassNode>
-              <y:Geometry height="237.152099609375" width="366.75" x="1792.1171875" y="362.894775390625"/>
-              <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
-              <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="144.15625" x="111.296875" y="3.0">Conexão com servidor<y:LabelModel>
-                  <y:SmartNodeLabelModel distance="4.0"/>
-                </y:LabelModel>
-                <y:ModelParameter>
-                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
-                </y:ModelParameter>
-              </y:NodeLabel>
-              <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>-ip
--status
-+protocolo
-</y:AttributeLabel>
-                <y:MethodLabel>void conectar(ip)
-desconectar(&amp;handler)
-*message preparar mensagem no protocolo (&amp;message, protocolo)
-void enviar mensagem(*message)
-*message receber mensagem (void)
-void sincronizar (void)
-void atualizar#pessoas e créditos(void)
-</y:MethodLabel>
-              </y:UML>
-            </y:UMLClassNode>
-          </data>
-        </node>
-        <node id="n1::n4">
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
@@ -352,7 +286,7 @@ void atualizar#pessoas e créditos(void)
             </y:UMLClassNode>
           </data>
         </node>
-        <node id="n1::n5">
+        <node id="n1::n4">
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
@@ -379,7 +313,7 @@ void move cursor(void)
             </y:UMLClassNode>
           </data>
         </node>
-        <node id="n1::n6">
+        <node id="n1::n5">
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
@@ -395,13 +329,13 @@ void move cursor(void)
               </y:NodeLabel>
               <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
                 <y:AttributeLabel>-status
-+protocolo
 +endereço
 -tempo para entrar
 </y:AttributeLabel>
                 <y:MethodLabel>void Liberar passagem (void)
 void Trancar passagem (void)
 long int Contar volta(void)
+void catraca(addr)
 </y:MethodLabel>
               </y:UML>
             </y:UMLClassNode>
@@ -473,72 +407,22 @@ void executarQuery (string query, string&amp; retorno)
         </node>
       </graph>
     </node>
-    <edge id="n0::e0" source="n0::n1" target="n0::n0">
-      <data key="d8"/>
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="12.126234701170006" ty="-50.62499999999997"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="none"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="n0::e1" source="n0::n1" target="n0::n3">
-      <data key="d8"/>
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="1.0026995449204605" ty="-26.09374999999997"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="none"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="n0::e2" source="n0::n1" target="n0::n2">
-      <data key="d8"/>
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="47.020100911458144" ty="-0.48933237519906925"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="none"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
     <edge id="n1::e0" source="n1::n0" target="n1::n1">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="10.313250086299604" ty="3.761033835738772"/>
+          <y:Path sx="0.0" sy="0.0" tx="-99.82607255184644" ty="5.345487769635213"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="none"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::e1" source="n1::n1" target="n1::n3">
+    <edge id="n1::e1" source="n1::n1" target="n1::n2">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="none"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="n1::e2" source="n1::n1" target="n1::n2">
-      <data key="d8"/>
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="33.96194572496847" sy="-43.23896616426123" tx="0.0" ty="0.0">
+          <y:Path sx="-76.17737691317757" sy="-29.269727916639283" tx="0.0" ty="0.0">
             <y:Point x="1685.652601888669" y="277.2318590310514"/>
             <y:Point x="1982.9921875" y="277.2318590310514"/>
           </y:Path>
@@ -548,13 +432,11 @@ void executarQuery (string query, string&amp; retorno)
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::e3" source="n1::n1" target="n1::n4">
+    <edge id="n1::e2" source="n1::n1" target="n1::n3">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="95.96194572496847" sy="-0.2389661642612282" tx="0.0" ty="0.0">
-            <y:Point x="1747.652601888669" y="342.23185903105133"/>
+          <y:Path sx="33.99611150397495" sy="-138.19002023437406" tx="0.0" ty="0.0">
             <y:Point x="2264.7436876725988" y="342.23185903105133"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
@@ -563,12 +445,11 @@ void executarQuery (string query, string&amp; retorno)
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::e4" source="n1::n1" target="n1::n5">
+    <edge id="n1::e3" source="n1::n1" target="n1::n4">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="66.96194572496847" sy="0.7610338357387718" tx="0.0" ty="0.0">
+          <y:Path sx="-43.17737691317757" sy="17.30347137034829" tx="0.0" ty="0.0">
             <y:Point x="1718.652601888669" y="312.2318590310514"/>
             <y:Point x="2303.84375" y="312.2318590310514"/>
           </y:Path>
@@ -578,9 +459,8 @@ void executarQuery (string query, string&amp; retorno)
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::e5" source="n1::n1" target="n1::n6">
+    <edge id="n1::e4" source="n1::n1" target="n1::n5">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -595,7 +475,6 @@ void executarQuery (string query, string&amp; retorno)
     </edge>
     <edge id="e0" source="n0" target="n1">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-379.11787397461944" ty="-258.86530273437495"/>
@@ -607,7 +486,6 @@ void executarQuery (string query, string&amp; retorno)
     </edge>
     <edge id="e1" source="n2" target="n1">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-404.07099897461967" ty="266.81707031250005"/>
