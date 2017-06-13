@@ -14,8 +14,8 @@
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {		
 		$conn->query($sqlUpdateCreditsEvent);
-		if ($conn->error) echo "Error - Server error while updating database: " . $conn->connect_error;
-		else echo "Update Successful! Waiting for board to sync...";	
+		if ($conn->error) echo "Error - Server error while updating database: " . $conn->error;
+		else echo "Update Successful! The credits will be updated as soon as the board syncs.";	
 	}
-
+	$conn->close();
 ?>

@@ -9,7 +9,7 @@
 	else {
 		$sql = "SELECT name, registry_number, cellphone_credit, card_credit FROM users WHERE access_level = 1";
 		$result = $conn->query($sql);
-		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->connect_error;
+		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->error;
 		else {
 			$resultsFound = $result->num_rows;
 
@@ -29,9 +29,9 @@
 				echo "]";
 			}
 			else {
-				echo "Error - No user found";
+				echo "Error - No student found";
 			}
 		}
 	}
-
+	$conn->close();
 ?>

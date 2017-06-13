@@ -41,5 +41,9 @@ angular.module("ruServer").config(function ($routeProvider) {
             templateUrl: "view/student/student-change-password.html",
             controller: "studentChangePasswordCtrl"
         })
+        .when("/error", {
+            templateUrl: "view/error.html",
+            controller: "errorCtrl"
+        })
         .otherwise({ redirectTo: "/login" });
 });

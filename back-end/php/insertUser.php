@@ -15,12 +15,12 @@
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {		
 		$conn->query($sqlAddUser);
-		if ($conn->error) echo "Error - Server error while updating database: " . $conn->connect_error;
+		if ($conn->error) echo "Error - Server error while updating database: " . $conn->error;
 		else {
 			$conn->query($sqlAddUserEvent);
-			if ($conn->error) echo "Error - Server error while updating database: " . $conn->connect_error;
+			if ($conn->error) echo "Error - Server error while updating database: " . $conn->error;
 			else echo "Insertion Successful!";
 		}		
 	}
-
+	$conn->close();
 ?>

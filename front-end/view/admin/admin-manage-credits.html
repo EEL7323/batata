@@ -1,25 +1,25 @@
 ﻿<div class="container jumbotron">
-    <hr />
-    <input class="form-control" type="text" ng-model="searchCriteria" placeholder="What are you looking for?" />
-    <hr />
-    <table class="table" ng-if="students.length > 0">
+    <hr ng-show="students.length > 0" />
+    <input class="form-control" type="text" ng-model="searchCriteria" placeholder="What are you looking for?" ng-show="students.length > 0" />
+    <hr ng-show="students.length > 0" />
+    <table class="table" ng-show="students.length > 0">
         <tr>
-            <th style="vertical-align: middle;"><input type="checkbox" class="toggle" ng-model="uncheckedAll" ng-click="uncheckAll()" /></th>
-            <th>Name</th>
-            <th>Registry number</th>
+            <th style="vertical-align: middle;"></th>
+            <th><span ng-class="nameClass"></span><a ng-click="orderBy('name')"> Name&#160</a></th>
+            <th><span ng-class="registryNumberClass"></span><a ng-click="orderBy('registryNumber')"> Registry number&#160</a></th>
             <th>Phone credit</th>
             <th>Card credit</th>
         </tr>
-        <tr ng-class="" ng-repeat="student in students | filter:searchCriteria">
-            <td style="vertical-align: middle; width: 5px"><input type="checkbox" ng-model="student.checked" /></td>
+        <tr ng-class="" ng-repeat="student in students | filter:searchCriteria | orderBy: orderCriteria:orderDirection">
+            <td style="vertical-align: middle; width: 5px"><input type="checkbox" ng-model="student.checked" ng-click="selectOne(students, student)" /></td>
             <td style="vertical-align: middle">{{student.name}}</td>
             <td style="vertical-align: middle">{{student.registryNumber}}</td>
             <td style="vertical-align: middle">{{student.cellphoneCredit}}</td>
             <td style="vertical-align: middle">{{student.cardCredit}}</td>
         </tr>
     </table>
-    <hr ng-if="isChecked(students)" />
-    <form name="creditsForm" ng-show="isChecked(students)">
+    <hr ng-show="countChecked(students) == 1" />
+    <form name="creditsForm" ng-show="countChecked(students) == 1">
         <div class="row">
             <div class="col-sm-6 text-center"><b>Cellphone Credit Increment/Decrement</b></div>
             <div class="col-sm-6 text-center"><b>Card Credit Increment/Decrement</b></div>
@@ -33,6 +33,7 @@
             </div>
         </div>
     </form>
-    <hr ng-if="isChecked(students)" />
-    <a class="btn btn-primary btn-block" ng-click="addCredits(input)" ng-disabled="(creditsForm.$invalid || !creditsForm.$dirty)" ng-if="isChecked(students)">Change credits</a>
+    <hr ng-show="countChecked(students) == 1" />
+    <a class="btn btn-primary btn-block" ng-click="!creditsForm.$dirty || creditsForm.$invalid || addCredits(input)" ng-disabled="(creditsForm.$invalid || !creditsForm.$dirty)" ng-show="countChecked(students) == 1">Change credits</a>
+    <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
 </div>

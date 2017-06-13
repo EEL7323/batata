@@ -9,7 +9,7 @@
 	else {
 		$sql = "SELECT tag_number, registry_number, name FROM users";
 		$result = $conn->query($sql);
-		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->connect_error;
+		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->error;
 		else {
 			$resultsFound = $result->num_rows;
 			if ($resultsFound > 0) {				
@@ -30,5 +30,5 @@
 			}
 		}
 	}
-
+	$conn->close();
 ?>

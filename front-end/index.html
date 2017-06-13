@@ -26,6 +26,8 @@
 
     <!-- Angular controllers files -->
     <script src="js/controllers/loginController.js"></script>
+    <script src="js/controllers/mainController.js"></script>
+    <script src="js/controllers/errorController.js"></script>
     <script src="js/controllers/admin/adminHomeController.js"></script>
     <script src="js/controllers/admin/adminLogController.js"></script>
     <script src="js/controllers/admin/adminManageCreditsController.js"></script>
@@ -35,17 +37,18 @@
     <script src="js/controllers/student/studentChangePasswordController.js"></script>
     <script src="js/controllers/student/studentHomeController.js"></script>
     <script src="js/controllers/student/studentLogController.js"></script>
-    <script src="js/controllers/mainController.js"></script>
 
     <!-- Angular directives files-->
     <script src="js/directives/navigationButtonDirective.js"></script>
 
     <!-- Angular filters files-->
+    <script src="js/filters/eventNameFilter.js"></script>
 
     <!-- Angular interceptors files-->
     <script src="js/interceptors/errorInterceptor.js"></script>
     <script src="js/interceptors/loadingInterceptor.js"></script>
     <script src="js/interceptors/timestampInterceptor.js"></script>
+    <script src="js/interceptors/editUserInterceptor.js"></script>
 
     <!-- Angular services files-->
     <script src="js/services/authenticationService.js"></script>
@@ -57,7 +60,7 @@
 <body class="jumbotron" ng-controller="mainCtrl">
 
     <div class="container alert alert-info text-center" ng-show="loading">
-        Loading, please wait...
+        <h3>{{loadingText}}</h3>
     </div>
 
     <navigation-menu ng-if="showNavMenu && !loading">

@@ -1,17 +1,17 @@
 ﻿<div class="container jumbotron">
-    <hr />
-    <input class="form-control" type="text" ng-model="searchCriteria" placeholder="What are you looking for?" />
-    <hr />
-    <table class="table" ng-if="users.length > 0">
+    <hr ng-show="users.length > 0" />
+    <input class="form-control" type="text" ng-model="searchCriteria" placeholder="What are you looking for?" ng-show="users.length > 0" />
+    <hr ng-show="users.length > 0" />
+    <table class="table" ng-show="users.length > 0">
         <tr>
-            <th><input type="checkbox" class="toggle" ng-model="uncheckedAll" ng-click="uncheckAll()" /></th>
-            <th>Name</th>
-            <th>Registry number</th>
-            <th>Tag number</th>
+            <th><input type="checkbox" class="toggle" ng-model="toggle" ng-click="toggleAll(toggle, users)" /></th>
+            <th><span ng-class="nameClass"></span><a ng-click="orderBy('name')"> Name&#160</a></th>
+            <th><span ng-class="registryNumberClass"></span><a ng-click="orderBy('registryNumber')"> Registry number&#160</a></th>
+            <th><span ng-class="tagNumberClass"></span><a ng-click="orderBy('tagNumber')"> Tag number&#160</a></th>
             <th>Credits</th>
             <th>Access Level</th>
         </tr>
-        <tr ng-class="" ng-repeat="user in users | filter:searchCriteria">
+        <tr ng-class="" ng-repeat="user in users | filter: searchCriteria | orderBy: orderCriteria:orderDirection">
             <td style="vertical-align: middle; width: 5px"><input type="checkbox" ng-model="user.checked" /></td>
             <td style="vertical-align: middle">{{user.name}}</td>
             <td style="vertical-align: middle">{{user.registryNumber}}</td>
@@ -20,16 +20,17 @@
             <td style="vertical-align: middle">{{user.accessLevel}}</td>
         </tr>
     </table>
-    <hr />
-    <div class="row">
+    <hr ng-show="users.length > 0" />
+    <div class="row" ng-show="users.length > 0">
         <div class="col-sm-4">
-            <a class="btn btn-primary btn-block" ng-click="isChecked(users) || insertUser(users)" ng-disabled="isChecked(users)">Insert User</a>
+            <a class="btn btn-primary btn-block" ng-click="countChecked(users) > 0 || insertUser(users)" ng-disabled="countChecked(users) > 0">Insert User</a>
         </div>
         <div class="col-sm-4">
-            <a class="btn btn-warning btn-block" ng-click="!isChecked(users) || countChecked(users) > 1 || editUser(users)" ng-disabled="!isChecked(users) || countChecked(users) > 1">Edit User</a>
+            <a class="btn btn-warning btn-block" ng-click="countChecked(users) != 1 || editUser(users)" ng-disabled="countChecked(users) != 1">Edit User</a>
         </div>
         <div class="col-sm-4">
-        <a class="btn btn-danger btn-block" ng-click="!isChecked(users) || deleteUsers(users)" ng-disabled="!isChecked(users)">Delete User(s)</a>
+        <a class="btn btn-danger btn-block" ng-click="countChecked(users) < 1 || deleteUsers(users)" ng-disabled="countChecked(users) < 1">Delete User(s)</a>
         </div>
     </div>
+    <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
 </div>

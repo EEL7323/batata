@@ -1,1 +1,22 @@
-﻿<div>This is student view log!</div>
+﻿<div class="container jumbotron">
+    <hr ng-show="logs.length > 0" />
+    <table class="table" ng-show="logs.length > 0">
+        <tr>
+            <th ng-if="bigScreen"><span ng-class="sourceIdClass"></span><a ng-click="orderBy('sourceId')"> Event Source&#160</a></th>
+            <th><span ng-class="typeClass"></span><a ng-click="orderBy('type')"> Event Type&#160</a></th>
+            <th>Phone &#916$</th>
+            <th>Card &#916$</th>
+            <th ng-if="bigScreen">To be resolved by board</th>
+            <th><span ng-class="timeClass"></span><a ng-click="orderBy('time')"> Time&#160</a></th>
+        </tr>
+        <tr ng-class="" ng-repeat="log in logs | orderBy: orderCriteria:orderDirection">
+            <td ng-if="bigScreen" style="vertical-align: middle">{{log.sourceId}}</td>
+            <td style="vertical-align: middle">{{log.type | eventName}}</td>
+            <td style="vertical-align: middle">{{log.diffCredCellphone}}</td>
+            <td style="vertical-align: middle">{{log.diffCredTag}}</td>
+            <td ng-if="bigScreen" style="vertical-align: middle">{{log.toResolve}}</td>
+            <td style="vertical-align: middle">{{log.time | date: "yyyy/MM/dd HH:mm"}}</td>
+        </tr>
+    </table>
+    <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
+</div>

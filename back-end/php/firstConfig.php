@@ -3,6 +3,14 @@
 // Include connection file, in which could be changed database settings
 include("connection.php");
 
+// Create first connection
+$conn = new mysqli($serverName, $userName, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    echo ("Connection failed: " . $conn->connect_error);
+} 
+
 // Queries
 	// Database creation query
 $sqlCreateDatabase = "CREATE DATABASE IF NOT EXISTS " . $dbName;
@@ -33,7 +41,7 @@ $sqlCreateEventsTable = "CREATE TABLE IF NOT EXISTS events (
 
 	// Admin user insertion query
 $sqlAddAdminUser = "INSERT INTO users (`tag_number`, `registry_number`, `name`, `access_level`, `password`, `cellphone_credit`, `card_credit`, `web_token`) VALUES (0, '00000000', 'Admin', 0, 'c73f7357c0a53dc07978cee4b77a3c322c7699e0', 0, 0, 'invalid')";
-$sqlAddUserEvent = "INSERT INTO events (`source_registry`, `target_registry`, `event_type`, `diff_cred_cellphone`, `diff_cred_tag`, `to_resolve`) VALUES (0, 0, 0, 0, 0, 0)";
+$sqlAddUserEvent = "INSERT INTO events (`source_registry`, `target_registry`, `event_type`, `diff_cred_cellphone`, `diff_cred_tag`, `to_resolve`) VALUES (0, '00000000', 0, 0, 0, 0)";
 
 // Execution and tests
 
@@ -54,7 +62,7 @@ if ($conn->query($sqlCreateDatabase) === TRUE) {
 			if ($insertionResult) echo("Insertion Successful"); 
 			else echo("Insertion Error: " . $conn->error);
 		}
-		else echo("Configuration Error: $conn->error");
+		else echo("Configuration Error: " . $conn->error);
 	}
 }
 

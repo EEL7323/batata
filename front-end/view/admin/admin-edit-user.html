@@ -11,8 +11,15 @@
         </select>
     </form>
     <hr />
+    <form name="editPasswordForm" ng-show="isSameUser()">
+        <input class="form-control margin-min" type="text" ng-model="user.oldPassword" name="oldPassword" placeholder="Type your old password" />
+        <input class="form-control margin-min" type="text" ng-model="user.newPassword" name="newPassword" placeholder="Type your new password" />
+        <input class="form-control margin-min" type="text" ng-model="user.newPasswordConfirm" name="newPasswordConfirm" placeholder="Confirm your new passoword" />
+    </form>
+    <hr ng-show="isSameUser()" />
     <div class="row">
-        <div class="col-sm-6"><a class="btn btn-primary btn-block" ng-click="saveUser(user)">Save</a></div>
+        <div class="col-sm-6"><a class="btn btn-primary btn-block" ng-click="saveUser(user)" ng-disabled="editPasswordForm.$invalid">Save</a></div>
         <div class="col-sm-6"><a class="btn btn-danger btn-block" href="#!/admin/manage-users">Cancel</a></div>
     </div>
+    <div ng-if="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
 </div>

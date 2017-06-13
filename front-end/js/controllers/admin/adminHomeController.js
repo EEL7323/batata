@@ -1,52 +1,70 @@
-angular.module("ruServer").controller("adminHomeCtrl", function ($scope, $location, authenticationService) {
+angular.module("ruServer").controller("adminHomeCtrl", function ($scope, $location, authenticationService, $rootScope, $http, config, $window) {
 
-    $scope.tokenError = false;
-    $scope.tokenErrorText = "";
+    // Variables declaration or attribution
 
-    var _token = localStorage['ruServerToken'];
-    var _valid = false;
+    $scope.showAlert = false;
+    $scope.isError = false;
+    $scope.errorText = "";
 
-    authenticationService.checkToken(_token)
-        .then(function (response) {
-            $scope.name = response.name;
-            var _allowedAccess = response.access;
-            $scope.registry = response.registry;
-            $scope.tag = response.tag;
+    $scope.info = {
+        subscribedStudents: 0,
+        insideRU: 0,
+        lastLunch: 0,
+        lastDinner: 0
+    };
 
-            if (_allowedAccess) {
+    $scope.dataAvailable = false;
 
-                if (_token.length == 16) {
-                    _slice = _token.slice(7, 8);
+    var _token = localStorage['ruServer'];
 
-                    if (_slice == 0) {
-                        $scope.buttonBarlink = "view/admin/admin-top-menu.html";
-                        $scope.pageLink = "view/admin/admin-home.html";
-                        $scope.tokenError = false;
-                    }
-                    else if (_slice == 1) {
-                        $scope.buttonBarlink = "view/admin/student-top-menu.html";
-                        $scope.pageLink = "view/admin/student-home.html";
-                        $scope.tokenError = false;
-                    }
-                    else {
-                        $scope.tokenError = true;
-                        $scope.tokenErrorText = "Your session has expired. Please, login again.";
-                        $location.path("/login");
-                    }
+    // Functions declaration
 
+    var _loadHomeInfo = function () {
+        $http.get(config.serverBaseUrl + "loadAdminInfo.php")
+            .then(function (response) {
+                $scope.info = response.data;
+                if (typeof($scope.info) == "string") {
+                    $scope.showAlert = true;
+                    $scope.isError = true;
+                    $scope.errorText = response.data;
+                    $scope.dataAvailable = false;
                 }
                 else {
-                    $scope.tokenError = true;
-                    $scope.tokenErrorText = "Your session has expired. Please, login again.";
+                    $scope.dataAvailable = true;
+                    $scope.showAlert = false;
+                    $scope.isError = false;
+                    $scope.errorText = "";
                 }
+            })
+            .catch(function (error) {
+                $rootScope.phpError = error.data;
+                $location.path("/error");
+            });
+    };
 
-            }
+    var _checkAuthenticationForPage = function () {
+        if (typeof (_token) != "undefined") {
+            authenticationService.checkToken(_token)
+                .then(function (response) {
+                    var _allowedAccess = response.access;
+                    var _accessLevel = response.accessLevel;
+                    if (!_allowedAccess || _accessLevel != 0) $location.path("/login");
+                })
+                .catch(function (error) {
+                    $rootScope.phpError = error.data;
+                    $location.path("/error");
+                });
+        }
+        else $location.path("/login");
+    };
 
-            else {
-                $scope.tokenError = true;
-                $scope.tokenErrorText = "Your session has expired. Please, login again.";
-            }
+    $scope.refresh = function () {
+        $window.location.reload();
+    }
 
-        });
+    // Initialization
+
+    _checkAuthenticationForPage();
+    _loadHomeInfo();
 
 });

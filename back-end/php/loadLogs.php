@@ -1,15 +1,20 @@
 <?php
 	include("connection.php");
 
+	$data = json_decode(file_get_contents("php://input"));
+
+	if ($data->targetRegistry == "all") $sql = "SELECT * FROM events";
+	else $sql = "SELECT * FROM events WHERE target_registry = " . $data->targetRegistry;
+
 	$conn = new mysqli($serverName, $userName, $password, $dbName);
 
 	// Check connection
 
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {
-		$sql = "SELECT * FROM events";
+
 		$result = $conn->query($sql);
-		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->connect_error;
+		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->error;
 		else {
 			$resultsFound = $result->num_rows;
 			if ($resultsFound > 0) {				
@@ -31,9 +36,9 @@
 				echo "]";
 			}
 			else {
-				echo "Error - No user found";
+				echo "Error - No event found";
 			}
 		}
 	}
-
+	$conn->close();
 ?>

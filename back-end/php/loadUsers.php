@@ -9,7 +9,7 @@
 	else {
 		$sql = "SELECT name, registry_number, tag_number, cellphone_credit, card_credit, access_level FROM users";
 		$result = $conn->query($sql);
-		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->connect_error;
+		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->error;
 		else {
 			$resultsFound = $result->num_rows;
 
@@ -35,5 +35,5 @@
 			}
 		}
 	}
-
+	$conn->close();
 ?>

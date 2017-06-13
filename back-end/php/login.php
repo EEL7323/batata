@@ -12,7 +12,7 @@
 	$sql = "SELECT tag_number, access_level FROM users WHERE registry_number='$userRegistry' AND password='$userPassword'";
 
 	// Try to connect
-	if ($conn->connect_error) echo("Authentication error - Connection failed: " . $conn->connect_error);
+	if ($conn->connect_error) echo("Authentication error - Connection failed: " . $conn->error);
 	else {
 		// Read results
 		$result = $conn->query($sql);
@@ -23,7 +23,7 @@
 			$tag_number = $result['tag_number'];
 			$sql = "UPDATE users SET web_token='$token' WHERE tag_number='$tag_number'";
 			$conn->query($sql);
-			if ($conn->error) echo "Authentication error - Server error while updating user";
+			if ($conn->error) echo "Authentication error - Server error while updating user: " . $conn->error;
 			else echo $token;
 		}
 		else {
