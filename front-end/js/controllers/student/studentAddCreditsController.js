@@ -8,7 +8,16 @@ angular.module("ruServer").controller("studentAddCreditsCtrl", function ($scope,
 
     $scope.input = {
         phoneIncrement: 0,
-        cardIncrement: 0
+        cardIncrement: 0,
+        creditCardNumber: 0,
+        creditCardExpirationDate: 0,
+        creditCardSecurityCode:0
+    };
+
+    var _simulatedCard = {
+        creditCardNumber: 1111222233334444,
+        creditCardExpirationDate: new Date(2017, 11, 1, 0, 0, 0, 0),
+        creditCardSecurityCode: 123
     };
 
     var _token = localStorage['ruServer'];
@@ -40,24 +49,34 @@ angular.module("ruServer").controller("studentAddCreditsCtrl", function ($scope,
         var _sourceRegistry = _token.slice(19);
         var _postData = {
             sourceRegistryNumber: _sourceRegistry,
+            targetRegistryNumber: _sourceRegistry,
             diffCreditCellphone: input.phoneIncrement,
             diffCreditTag: input.cardIncrement,
-            creditCardNumber: input.creditCardNumber,
-            creditCardSecurityCode: input.creditCardSecurityCode,
-            creditCardExpirationDate: input.creditCardExpirationDate
         };
 
-        $http.post(config.serverBaseUrl + "updateCreditsbyCreditCard.php", _postData)
-            .then(function (response) {
-                $scope.showAlert = true;
-                $scope.errorText = response.data;
-                if (response.data.startsWith("Error -")) $scope.isError = true;
-                else $scope.isError = false;
-            })
-            .catch(function (error) {
-               $rootScope.phpError = error.data;
-               $location.path("/error");
-            });
+        var _sameCreditCardNumber = (_simulatedCard.creditCardNumber == input.creditCardNumber);
+        var _sameExpirationDate = (_simulatedCard.creditCardExpirationDate.toString() == input.creditCardExpirationDate.toString());
+        var _sameSecurityCode = (_simulatedCard.creditCardSecurityCode == input.creditCardSecurityCode);
+
+        if (_sameCreditCardNumber && _sameExpirationDate && _sameSecurityCode) {
+
+            $http.post(config.serverBaseUrl + "updateCredits.php", _postData)
+                .then(function (response) {
+                    $scope.showAlert = true;
+                    $scope.errorText = response.data;
+                    if (response.data.startsWith("Error -")) $scope.isError = true;
+                    else $scope.isError = false;
+                })
+                .catch(function (error) {
+                    $rootScope.phpError = error.data;
+                    $location.path("/error");
+                });
+        }
+        else {
+            $scope.showAlert = true;
+            $scope.errorText = "Credit card not found.";
+            $scope.isError = true;
+        }
     };
 
     // Initialization

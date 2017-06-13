@@ -21,9 +21,16 @@
 
 	// Queries to get desired data
 
+	if (date('H:i:s') > date('H:i:s', mktime(15, 0, 0))) {
+		$sqlGetCurrentNumberOfEnteringEventsRegistered = "SELECT COUNT(*) FROM events WHERE event_time >= '$todayDinnerBeginning' AND event_time <= '$todayDinnerEnd' AND event_type = 3";
+		$sqlGetCurrentNumberOfLeavingEventsRegistered = "SELECT COUNT(*) FROM events WHERE event_time >= '$todayDinnerBeginning' AND event_time <= '$todayDinnerEnd' AND event_type = 4";
+	}
+	else {
+		$sqlGetCurrentNumberOfEnteringEventsRegistered = "SELECT COUNT(*) FROM events WHERE event_time >= '$yesterdayLunchBeginning' AND event_time <= '$yesterdayLunchEnd' AND event_type = 3";
+		$sqlGetCurrentNumberOfLeavingEventsRegistered = "SELECT COUNT(*) FROM events WHERE event_time >= '$yesterdayLunchBeginning' AND event_time <= '$yesterdayLunchEnd' AND event_type = 4";
+	}
+
 	$sqlGetNumberOfStudents = "SELECT COUNT(*) FROM users WHERE access_level = 1";
-	$sqlGetCurrentNumberOfEnteringEventsRegistered = "SELECT COUNT(*) FROM events WHERE event_time >= '$todayLunchBeginning' AND event_time <= '$todayLunchEnd' AND event_type = 3";
-	$sqlGetCurrentNumberOfLeavingEventsRegistered = "SELECT COUNT(*) FROM events WHERE event_time >= '$todayLunchBeginning' AND event_time <= '$todayLunchEnd' AND event_type = 4";
 	$sqlGetNumberOfPeopleInLuchYesterday = "SELECT COUNT(*) FROM events WHERE event_time >= '$yesterdayLunchBeginning' AND event_time <= '$yesterdayLunchEnd' AND event_type = 3";
 	$sqlGetNumberOfPeopleInDinnerYesterday = "SELECT COUNT(*) FROM events WHERE event_time >= '$yesterdayDinnerBeginning' AND event_time <= '$yesterdayDinnerEnd' AND event_type = 3";
 

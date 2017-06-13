@@ -57,13 +57,13 @@
     <script src="js/value/configValue.js"></script>
 
 </head>
-<body class="jumbotron" ng-controller="mainCtrl">
+<body class="jumbotron" ng-controller="mainCtrl">  
 
     <div class="container alert alert-info text-center" ng-show="loading">
         <h3>{{loadingText}}</h3>
     </div>
 
-    <navigation-menu ng-if="showNavMenu && !loading">
+    <navigation-menu ng-show="showNavMenu && !loading">
         <navigation-button title={{titleButton1}} page={{linkButton1}}></navigation-button>
         <navigation-button title={{titleButton2}} page={{linkButton2}}></navigation-button>
         <navigation-button title={{titleButton3}} page={{linkButton3}}></navigation-button>

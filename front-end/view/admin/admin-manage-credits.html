@@ -34,6 +34,6 @@
         </div>
     </form>
     <hr ng-show="countChecked(students) == 1" />
-    <a class="btn btn-primary btn-block" ng-click="!creditsForm.$dirty || creditsForm.$invalid || addCredits(input)" ng-disabled="(creditsForm.$invalid || !creditsForm.$dirty)" ng-show="countChecked(students) == 1">Change credits</a>
+    <a class="btn btn-primary btn-block" ng-click="!creditsForm.$dirty || creditsForm.$invalid || addCredits(input)" ng-disabled="creditsForm.$invalid || !creditsForm.$dirty" ng-show="countChecked(students) == 1">Change credits</a>
     <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
 </div>

@@ -7,7 +7,6 @@ angular.module("ruServer").controller("adminEditUserCtrl", function ($scope, $ht
     $scope.errorText = "";
 
     $scope.user = $rootScope.selUser;
-    $scope.editUserTitle = $rootScope.editUserTitle;
 
     $scope.isSameUser = false;
 
@@ -33,7 +32,10 @@ angular.module("ruServer").controller("adminEditUserCtrl", function ($scope, $ht
 
     $scope.isSameUser = function () {
         var _sourceAdmin = _token.slice(19);
-        if (_sourceAdmin == $rootScope.selUser.registryNumber) return true;
+        if (typeof($rootScope.selUser) != "undefined") {
+            if (_sourceAdmin == $rootScope.selUser.registryNumber) return true;
+            else return false;
+        }
         else return false;
     };
 
@@ -43,8 +45,8 @@ angular.module("ruServer").controller("adminEditUserCtrl", function ($scope, $ht
     };
 
     $scope.getMethod = function () {
-        if ($rootScope.editUserTitle == "Insert user info") return "insert";
-        else if ($scope.editUserTitle == "Edit user info") return "update";
+        if ($rootScope.editUserMethod == "Insert user info") return "insert";
+        else if ($rootScope.editUserMethod == "Edit user info") return "update";
     };
 
     $scope.saveUser = function (user) {
@@ -72,9 +74,10 @@ angular.module("ruServer").controller("adminEditUserCtrl", function ($scope, $ht
         }
         else if ($scope.getMethod() == 'update') {
 
-            if (typeof (user.newPassword) == "undefined" || typeof (user.oldPassword) == "undefined") {
-                user.newPassword = "";
+            if (!$scope.changePassword) {
                 user.oldPassword = "";
+                user.newPassword = "";
+                user.newPasswordConfirm = "";
             }
 
             var _postData = {
@@ -87,7 +90,7 @@ angular.module("ruServer").controller("adminEditUserCtrl", function ($scope, $ht
                 newPassword: user.newPassword
             };
 
-            if (((user.newPassword == user.newPasswordConfirm) && (user.newPassword == "" && user.oldPassword == "")) || !$scope.isSameUser()) {
+            if (user.newPassword == user.newPasswordConfirm) {
                 $http.post(config.serverBaseUrl + "updateUser.php", _postData)
                     .then(function (response) {
                         $scope.showAlert = true;
@@ -105,6 +108,11 @@ angular.module("ruServer").controller("adminEditUserCtrl", function ($scope, $ht
                 $scope.errorText = "New password and confirmation do not match. Please check if you typed correctly again.";
                 $scope.isError = true;
             }
+        }
+        else {
+            $scope.showAlert = true;
+            $scope.errorText = "An error ocurred. Go back to the Manage Users tab and try again.";
+            $scope.isError = true;
         }
     };
 

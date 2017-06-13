@@ -17,22 +17,22 @@
         <hr />
         <div class="row">
             <div class="col-sm-6 text-center"><b>Credit Card Number</b></div>
-            <div class="col-sm-3 text-center"><b>Expirates in</b></div>
+            <div class="col-sm-3 text-center"><b>Expires in</b></div>
             <div class="col-sm-3 text-center"><b>Security Code</b></div>
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <input class="form-control margin-min" type="number" ng-model="input.creditCardNumber" name="phoneIncrement" ng-pattern="/^-?[0-9]{1,3}$/" placeholder="0" />
+                <input class="form-control margin-min" type="number" ng-model="input.creditCardNumber" name="phoneIncrement" ng-required="true" ng-pattern="/^-?[0-9]{16}$/" placeholder="0" />
             </div>
             <div class="col-sm-3">
-                <input class="form-control margin-min" type="date" ng-model="input.creditCardExpirationDate" name="cardIncrement" ng-pattern="/^-?[0-9]{1,3}$/" placeholder="0" />
+                <input class="form-control margin-min" type="month" ng-model="input.creditCardExpirationDate" name="cardIncrement" ng-required="true" placeholder="0" />
             </div>
             <div class="col-sm-3">
-                <input class="form-control margin-min" type="number" ng-model="input.creditCardSecurityCode" name="cardIncrement" ng-pattern="/^-?[0-9]{1,3}$/" placeholder="0" />
+                <input class="form-control margin-min" type="number" ng-model="input.creditCardSecurityCode" name="cardIncrement" ng-required="true" ng-pattern="/^-?[0-9]{3}$/" placeholder="0" />
             </div>
         </div>
     </form>
     <hr />
-    <a class="btn btn-primary btn-block" ng-click="!creditsForm.$dirty || creditsForm.$invalid || addCredits(input)" ng-disabled="(creditsForm.$invalid || !creditsForm.$dirty)">Change credits</a>
+    <a class="btn btn-primary btn-block" ng-click="creditsForm.$invalid || addCredits(input)" ng-disabled="creditsForm.$invalid">Change credits</a>
     <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
 </div>

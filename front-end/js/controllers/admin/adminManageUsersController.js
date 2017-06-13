@@ -138,7 +138,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
             tagNumber: "",
             accessLevel: ""
         };
-        $rootScope.editUserTitle = "Insert user info";
+        $rootScope.editUserMethod = "Insert user info";
     };
 
     $scope.editUser = function (users) {
@@ -151,7 +151,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
                     tagNumber: (user.tagNumber * 1),
                     accessLevel: user.accessLevel
                 };
-                $rootScope.editUserTitle = "Edit user info";
+                $rootScope.editUserMethod = "Edit user info";
             }
         });
     };
