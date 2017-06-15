@@ -1,7 +1,10 @@
 #include "connection.h"
 #include "captcha.h"
+#include "bstree.h"
+
 
 /***Set connection parameters***/
+
 //const char* ssid = "steins";
 //const char* password = "12345678";
 //const char* ssid = "GVT-5527";
@@ -13,7 +16,8 @@ const char* password = "batata2017";
 
 int server_port = 80; //Server Listens in Port 80
 connection serverForApp(server_port); //Instantiates an connection object
-/**End connection parameters**/
+
+/***End connection parameters***/
 
 /***Instantiates a new captcha code***/
 captcha nearCode;

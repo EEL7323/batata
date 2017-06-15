@@ -27,12 +27,24 @@
     <ClInclude Include="..\libraries\captcha\captcha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\libraries\student\student.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\bstree\bstree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\libraries\captcha\captcha.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\libraries\connection\connection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\bstree\bstree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\student\student.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

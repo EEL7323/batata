@@ -1,4 +1,5 @@
 #include "bstree.h"
+
 //Tree constructor
 bstree::bstree() {
 	root = NULL;
@@ -253,7 +254,7 @@ void bstree::del(unsigned int x, student* &p) {
 	student* d;
 	if (p == NULL)
 	{
-		cout << "Sorry! card_id not found\n" << endl;
+		Serial.println("Sorry! card_id not found\n");
 	}
 	else if (x < p->card_id)
 	{
@@ -268,21 +269,21 @@ void bstree::del(unsigned int x, student* &p) {
 		d = p;
 		free(d);
 		p = NULL;
-		cout << "Element deleted successfully\n" << endl;
+		Serial.println("Element deleted successfully\n");
 	}
 	else if (p->left == NULL)
 	{
 		d = p;
 		free(d);
 		p = p->right;
-		cout << "Element deleted successfully\n" << endl;
+		Serial.println("Element deleted successfully\n");
 	}
 	else if (p->right == NULL)
 	{
 		d = p;
 		p = p->left;
 		free(d);
-		cout << "Element deleted successfully\n" << endl;
+		Serial.println("Element deleted successfully\n");
 	}
 	else
 	{
@@ -297,7 +298,7 @@ unsigned int bstree::deletemin(student* &p)
 	It is used in del method.
 	*/
 	unsigned int c;
-	//cout << "inside deltemin\n" << endl;
+
 	if (p->left == NULL)
 	{
 		c = p->card_id;
@@ -311,7 +312,7 @@ unsigned int bstree::deletemin(student* &p)
 	}
 }
 
-int bstree::max(int value1, int value2)
+int bstree::maximum(int value1, int value2)
 {
 	/*Method Description:
 	This method returns the maximum value between do integer.
@@ -393,8 +394,7 @@ void bstree::inorder(student* p)
 	if (p != NULL)
 	{
 		inorder(p->left);
-		cout << p->card_id << "\t";
+		Serial.println(p->card_id);
 		inorder(p->right);
 	}
 }
-

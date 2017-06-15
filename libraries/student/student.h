@@ -1,3 +1,13 @@
+
+#ifndef _STUDENT_h
+#define _STUDENT_h
+
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "arduino.h"
+#else
+#include "WProgram.h"
+#endif
+
 class student{
 public:
 	unsigned int card_id;
@@ -9,4 +19,4 @@ public:
 	student();
 };
 
-
+#endif;
