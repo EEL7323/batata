@@ -2,6 +2,7 @@
 #include "captcha.h"
 #include "bstree.h"
 #include "card.h"
+#include "gate.h"
 
 
 /***Set connection parameters***/
@@ -34,8 +35,13 @@ student *RuClient;
 card CardReader(4); //Connect it to pin 4
 /***        End         ***/
 
+/*** Instantiates a few gates***/
+gate entree(ENTREE_GATE, 5, 6);
+gate exit_gate(EXIT_GATE, 2, 6);
+/***        End       ***/
 
-/*Begins the coe setup*/
+
+/*Begins the code setup*/
 void setup() {
 	//Start serial with 115200 baudrate
 	Serial.begin(115200);
@@ -120,7 +126,8 @@ void loop() {
 						//Then we debit the credits and post it to the webServer
 						Users.debitCredits(1, 'a', Users.root);
 						serverForApp.post2server(String(RuClient->card_id));
-						//Finally we release the gate (To develop)
+						//Finally we release the gate
+						entree.release(RuClient->card_id);
 					}
 					else serverForApp.write2Client("Out of credits");
 				}
@@ -131,7 +138,7 @@ void loop() {
 			request = "";
 			code = nearCode.newCaptcha();
 			Serial.println(code);
-		}
+		}//End App connection
 
 		//Check if a card is trying to connect
 		else if (CardReader.checkForCard())
@@ -151,12 +158,13 @@ void loop() {
 					//Then we debit the credits and post it to the webServer
 					Users.debitCredits(1, 'c', Users.root);
 					CardReader.post2server(String(RuClient->card_id));
-					//Finally we release the gate (To develop)
+					//Finally we release the gate
+					entree.release(RuClient->card_id);
 				}
 				else serverForApp.write2Client("Out of credits");
 			}
 			else serverForApp.write2Client("User not in our domains yet");
-		}
-	}
+		} //End Card
+	}//End Ru_Open
 }
 
