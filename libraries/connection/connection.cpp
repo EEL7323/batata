@@ -1,6 +1,3 @@
-// 
-// 
-// 
 
 #include "connection.h"
 /* This is the constructor of the connection class
@@ -66,24 +63,6 @@ String connection::requestFromClient()
 */
 void connection::write2Client(String value)
 {
-	HTTPClient http;
-	http.begin("http://192.168.137.1:8081/server/back-end/php/enterRU.php");
-
-	//int httpCode = http.GET();
-	//String payload = http.getString();
-	//Serial.println(httpCode);
-	//Serial.println(payload);
-	int code_returned = http.POST("[{'name':'Pedro', 'registryNumber': '13104320', 'tagNumber':'45678','cellphoneCredit':'15','cardCredit':'30','accessLevel':'1'}]");
-	//int code_returned = http.POST("jader");
-	Serial.println(code_returned);
-	String payload = http.getString();
-	Serial.println(payload);
-	//ru_server.print("Um usuario entrou");
-	//ru_server2.print("Um usuario entrou");
-
-	//String resposta = ru_server.readStringUntil('/t');
-	//Serial.println(resposta);
-
 	app.print(value);
 }
 
@@ -95,25 +74,18 @@ bool connection::getStatus()
 	return WiFiServer::status();
 }
 
-class MyClass
+void connection::post2server(String payload)
 {
-public:
-	int id = 1;
-	String matricula = "13104320";
-	String nome = "Pedro";
-	MyClass();
-	~MyClass();
-
-private:
-
-};
-
-MyClass::MyClass()
-{
-
+	HTTPClient http;
+	http.begin("http://192.168.137.1:8081/server/back-end/php/enterRU.php");
+	int code_returned = http.POST(payload);
 }
 
-MyClass::~MyClass()
+String connection::getFromServer(void)
 {
-
+	HTTPClient http;
+	http.begin("http://192.168.137.1:8081/server/back-end/php/enterRU.php");
+	int httpCode = http.GET();
+	String payload = http.getString();
+	return payload;
 }

@@ -20,6 +20,7 @@ class connection : public WiFiServer
 	WiFiClient app;
 	bool status;
 	int port;
+	int request_code;
 public:
 
 	connection(int set_port);
@@ -29,6 +30,8 @@ public:
 	int checkForClient();
 	String requestFromClient();
 	void write2Client(String value);
+	void post2server(String payload);
+	String getFromServer(void);
 };
 
 
