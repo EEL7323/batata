@@ -1,6 +1,7 @@
 #include "connection.h"
 #include "captcha.h"
 #include "bstree.h"
+#include "card.h"
 
 
 /***Set connection parameters***/
@@ -22,11 +23,17 @@ connection serverForApp(server_port); //Instantiates an connection object
 /***Instantiates a new captcha code***/
 captcha nearCode;
 String code = "";
-/***End***/
+/***      End            ***/
 
+/***Instantiates a new tree of users***/
 bstree Users;
 student *RuClient;
-student *root;
+/***      End         ***/
+
+/***Instantiates a new cardReader***/
+card CardReader(4); //Connect it to pin 4
+/***        End         ***/
+
 
 /*Begins the coe setup*/
 void setup() {
@@ -107,7 +114,7 @@ void loop() {
 				// If there is no user with this card registered it should return
 				if (RuClient != NULL)
 				{
-					// Otherwise we check if their credits in the app exists
+					// Otherwise we check if his credits in the app exists
 					if (RuClient->app_credit > 0)
 					{
 						//Then we debit the credits and post it to the webServer
@@ -126,6 +133,30 @@ void loop() {
 			Serial.println(code);
 		}
 
+		//Check if a card is trying to connect
+		else if (CardReader.checkForCard())
+		{
+			//Now we should get the card Id
+			int cardId = CardReader.getId();
+
+			// Then we look for our user
+			RuClient = Users.find(cardId, Users.root);
+
+			// If there is no user with this card registered it should return
+			if (RuClient != NULL)
+			{
+				// Otherwise we check if his credits in the card exists
+				if (RuClient->card_credit > 0)
+				{
+					//Then we debit the credits and post it to the webServer
+					Users.debitCredits(1, 'c', Users.root);
+					CardReader.post2server(String(RuClient->card_id));
+					//Finally we release the gate (To develop)
+				}
+				else serverForApp.write2Client("Out of credits");
+			}
+			else serverForApp.write2Client("User not in our domains yet");
+		}
 	}
 }
 
