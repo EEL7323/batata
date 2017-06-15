@@ -29,7 +29,9 @@ card::~card()
 */
 bool card::checkForCard()
 {
-	return digitalRead(pin);
+	bool val = digitalRead(pin);
+	delay(100);
+	return val;
 }
 
 /* This is the request from client method

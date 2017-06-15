@@ -9,7 +9,10 @@ gate::gate(bool mode, int Id, int sensor)
 {
 	gate_func = mode;
 	gate_id = Id;
-	pinMode(Id, OUTPUT);
+	pinMode(gate_id, OUTPUT);
+	gate_sensor = sensor;
+	pinMode(gate_sensor, INPUT);
+	return;
 }
 gate::~gate()
 {
@@ -21,10 +24,13 @@ void gate::release(int card_id)
 	String payload;
 	status = GATE_RELEASED;
 	digitalWrite(gate_id, HIGH);
-	while (digitalRead(gate_sensor));
+	while (!digitalRead(gate_sensor))
+	{
+		delay(100);
+	}
 	if (gate_func = ENTREE_GATE) payload = String(card_id) + ",3";
 	else payload = String(card_id) + ",4";
-	gate::postentry(payload);
+	//gate::postentry(payload);
 	gate::block();
 	return;
 }

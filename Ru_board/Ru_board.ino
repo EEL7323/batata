@@ -9,12 +9,12 @@
 
 //const char* ssid = "steins";
 //const char* password = "12345678";
-//const char* ssid = "GVT-5527";
-//const char* password = "J445143561";
+const char* ssid = "GVT-5527";
+const char* password = "J445143561";
 //const char* ssid = "VIVO-E290";
 //const char* password = "0003000640";
-const char* ssid = "Batata";
-const char* password = "batata2017";
+//const char* ssid = "Batata";
+//const char* password = "batata2017";
 
 int server_port = 80; //Server Listens in Port 80
 connection serverForApp(server_port); //Instantiates an connection object
@@ -32,17 +32,18 @@ student *RuClient;
 /***      End         ***/
 
 /***Instantiates a new cardReader***/
-card CardReader(4); //Connect it to pin 4
+card CardReader(5); //Connect it to pin 8
 /***        End         ***/
 
 /*** Instantiates a few gates***/
-gate entree(ENTREE_GATE, 5, 6);
-gate exit_gate(EXIT_GATE, 2, 6);
+gate entree(ENTREE_GATE, 3, 2);
+//gate exit_gate(EXIT_GATE, 4, 3);
 /***        End       ***/
 
 
 /*Begins the code setup*/
 void setup() {
+	
 	//Start serial with 115200 baudrate
 	Serial.begin(115200);
 	//Wait 10ms for serial to start
@@ -124,7 +125,7 @@ void loop() {
 					if (RuClient->app_credit > 0)
 					{
 						//Then we debit the credits and post it to the webServer
-						Users.debitCredits(1, 'a', Users.root);
+						Users.debitCredits(serverForApp.app_card, 'a', Users.root);
 						serverForApp.post2server(String(RuClient->card_id));
 						//Finally we release the gate
 						entree.release(RuClient->card_id);
@@ -145,6 +146,8 @@ void loop() {
 		{
 			//Now we should get the card Id
 			int cardId = CardReader.getId();
+			Serial.print("Card Id:");
+			Serial.println(cardId);
 
 			// Then we look for our user
 			RuClient = Users.find(cardId, Users.root);
@@ -152,19 +155,27 @@ void loop() {
 			// If there is no user with this card registered it should return
 			if (RuClient != NULL)
 			{
+				Serial.println("He is in the tree");
 				// Otherwise we check if his credits in the card exists
 				if (RuClient->card_credit > 0)
 				{
 					//Then we debit the credits and post it to the webServer
-					Users.debitCredits(1, 'c', Users.root);
-					CardReader.post2server(String(RuClient->card_id));
+					Users.debitCredits(cardId, 'c', Users.root);
+					Serial.println("User:");
+					Serial.println(cardId);
+					Serial.println("Credits:");
+					Serial.println(RuClient->card_credit);
+					//CardReader.post2server(String(RuClient->card_id));
 					//Finally we release the gate
 					entree.release(RuClient->card_id);
+					Serial.println("End transaction");
 				}
-				else serverForApp.write2Client("Out of credits");
+				else Serial.println("Out of credits");
 			}
-			else serverForApp.write2Client("User not in our domains yet");
+			else Serial.println("User not in our domains yet");
 		} //End Card
+		delay(1);
 	}//End Ru_Open
+
 }
 
