@@ -27,11 +27,11 @@
     <ClInclude Include="..\libraries\captcha\captcha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\libraries\student\student.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\libraries\bstree\bstree.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\student\student.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
