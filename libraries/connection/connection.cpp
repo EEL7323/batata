@@ -66,11 +66,18 @@ String connection::requestFromClient()
 */
 void connection::write2Client(String value)
 {
-	//WiFiClient ru_server;
-	//WiFiClient ru_server2;
-	//ru_server.connect("192.168.43.108", 1414);
-	//ru_server2.connect("192.168.43.68", 8080);
+	HTTPClient http;
+	http.begin("http://192.168.137.1:8081/server/back-end/php/enterRU.php");
 
+	//int httpCode = http.GET();
+	//String payload = http.getString();
+	//Serial.println(httpCode);
+	//Serial.println(payload);
+	int code_returned = http.POST("[{'name':'Pedro', 'registryNumber': '13104320', 'tagNumber':'45678','cellphoneCredit':'15','cardCredit':'30','accessLevel':'1'}]");
+	//int code_returned = http.POST("jader");
+	Serial.println(code_returned);
+	String payload = http.getString();
+	Serial.println(payload);
 	//ru_server.print("Um usuario entrou");
 	//ru_server2.print("Um usuario entrou");
 
@@ -86,4 +93,27 @@ void connection::write2Client(String value)
 bool connection::getStatus()
 {
 	return WiFiServer::status();
+}
+
+class MyClass
+{
+public:
+	int id = 1;
+	String matricula = "13104320";
+	String nome = "Pedro";
+	MyClass();
+	~MyClass();
+
+private:
+
+};
+
+MyClass::MyClass()
+{
+
+}
+
+MyClass::~MyClass()
+{
+
 }

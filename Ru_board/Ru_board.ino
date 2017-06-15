@@ -1,4 +1,4 @@
-#include <connection.h>
+#include "connection.h"
 #include "captcha.h"
 
 //Set connection parameters
@@ -6,9 +6,10 @@
 //const char* password = "12345678";
 //const char* ssid = "GVT-5527";
 //const char* password = "J445143561";
-const char* ssid = "VIVO-E290";
-const char* password = "0003000640";
-
+//const char* ssid = "VIVO-E290";
+//const char* password = "0003000640";
+const char* ssid = "Batata";
+const char* password = "batata2017";
 int server_port = 80;
 connection serverForApp(server_port);
 captcha nearCode;
@@ -72,6 +73,6 @@ void loop() {
 		code = nearCode.newCaptcha();
 		Serial.println(code);
 	}
-	
+
 }
 
