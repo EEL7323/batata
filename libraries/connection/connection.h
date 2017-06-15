@@ -21,7 +21,9 @@ class connection : public WiFiServer
 	bool status;
 	int port;
 	int request_code;
+	
 public:
+	int app_card;
 
 	connection(int set_port);
 	~connection();

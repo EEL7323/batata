@@ -52,8 +52,9 @@ int connection::checkForClient()
 String connection::requestFromClient()
 {
 	String request = app.readStringUntil('\t');
+	app_card = (request.substring(1, 8)).toInt();
 	app.flush();
-	return request;
+	return request.substring(9);
 }
 
 /* This is the write to client method
