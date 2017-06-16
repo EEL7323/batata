@@ -30,7 +30,7 @@ card::~card()
 bool card::checkForCard()
 {
 	bool val = digitalRead(pin);
-	delay(100);
+	delay(300);
 	return val;
 }
 

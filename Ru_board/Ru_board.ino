@@ -9,14 +9,14 @@
 
 //const char* ssid = "steins";
 //const char* password = "12345678";
-const char* ssid = "GVT-5527";
-const char* password = "J445143561";
+//const char* ssid = "GVT-5527";
+//const char* password = "J445143561";
 //const char* ssid = "VIVO-E290";
 //const char* password = "0003000640";
-//const char* ssid = "Batata";
-//const char* password = "batata2017";
+const char* ssid = "Batata";
+const char* password = "batata2017";
 
-int server_port = 80; //Server Listens in Port 80
+int server_port = 8564; //Server Listens in Port 80
 connection serverForApp(server_port); //Instantiates an connection object
 
 /***End connection parameters***/
@@ -36,10 +36,13 @@ card CardReader(5); //Connect it to pin 8
 /***        End         ***/
 
 /*** Instantiates a few gates***/
-gate entree(ENTREE_GATE, 3, 2);
+gate entree(ENTREE_GATE, 3, 14);
 //gate exit_gate(EXIT_GATE, 4, 3);
 /***        End       ***/
 
+/**Function prototipes**/
+void checkTime(void);
+/**     End        **/
 
 /*Begins the code setup*/
 void setup() {
@@ -79,9 +82,11 @@ void setup() {
 	Serial.println(code);
 }
 
+bool Ru_open = false;
+
 void loop() {
 
-	static bool Ru_open = false;
+
 	static bool Sync = false;
 	static String request = "";
 	
@@ -93,12 +98,15 @@ void loop() {
 		{
 			Users.insert(i, 3, 3, Users.root);
 		}
-		Ru_open = true;
+		Ru_open = serverForApp.getTime();
 		Sync = true;
 	}
 
+	checkTime();
+
 	while (Ru_open)
 	{
+		
 		// Check if a client has connected
 		if (serverForApp.checkForClient()) 
 		{
@@ -112,27 +120,33 @@ void loop() {
 
 			// Now we should check if the captcha is correct
 			if (nearCode.checkCaptcha(request)) {
-				Serial.println("y"); //debug feature
+				Serial.println("Captcha Correto"); //debug feature
 				// Send an ok message to the client app
-				serverForApp.write2Client("y");
+				
 
 				// Now we search for the user that is trying to enter
 				RuClient = Users.find(serverForApp.app_card, Users.root);
 				// If there is no user with this card registered it should return
 				if (RuClient != NULL)
 				{
+					Serial.println("User:");
+					Serial.println(RuClient->card_id);
+					Serial.println("App Credits:");
+					Serial.println(RuClient->app_credit);
 					// Otherwise we check if his credits in the app exists
 					if (RuClient->app_credit > 0)
 					{
 						//Then we debit the credits and post it to the webServer
 						Users.debitCredits(serverForApp.app_card, 'a', Users.root);
-						serverForApp.post2server(String(RuClient->card_id));
+						//Tell the app that the user is allowed to enter
+						serverForApp.write2Client("y");
 						//Finally we release the gate
 						entree.release(RuClient->card_id);
+						Serial.println("End transaction");
 					}
-					else serverForApp.write2Client("Out of credits");
+					else serverForApp.write2Client("ooc");
 				}
-				else serverForApp.write2Client("User not in our domains yet");
+				else serverForApp.write2Client("unr");
 			}
 			else serverForApp.write2Client("n"); //Captcha incorrect
 			delay(1);
@@ -165,7 +179,6 @@ void loop() {
 					Serial.println(cardId);
 					Serial.println("Credits:");
 					Serial.println(RuClient->card_credit);
-					//CardReader.post2server(String(RuClient->card_id));
 					//Finally we release the gate
 					entree.release(RuClient->card_id);
 					Serial.println("End transaction");
@@ -174,8 +187,19 @@ void loop() {
 			}
 			else Serial.println("User not in our domains yet");
 		} //End Card
+		
+		checkTime();
 		delay(1);
 	}//End Ru_Open
 
 }
 
+void checkTime(void)
+{
+	static unsigned long int time = millis();
+	if (millis() - time > 60000)
+	{
+		time = millis() - time;
+		Ru_open = serverForApp.getTime();
+	}
+}

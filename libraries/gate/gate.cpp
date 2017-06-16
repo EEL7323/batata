@@ -30,7 +30,8 @@ void gate::release(int card_id)
 	}
 	if (gate_func = ENTREE_GATE) payload = String(card_id) + ",3";
 	else payload = String(card_id) + ",4";
-	//gate::postentry(payload);
+	gate::postentry(payload);
+
 	gate::block();
 	return;
 }
@@ -51,7 +52,11 @@ bool gate::getStatus(void)
 void gate::postentry(String payload)
 {
 	HTTPClient http;
-	http.begin("http://192.168.137.1:8081/server/back-end/php/enterRU.php");
+	Serial.println(payload);
+	http.begin("http://192.168.137.1:8081/server/back-end/php/ruInOut.php");
 	int code_returned = http.POST(payload);
+	Serial.println(code_returned);
+	String response = http.getString();
+	Serial.println(response);
 	return;
 }

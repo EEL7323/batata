@@ -34,6 +34,7 @@ public:
 	void write2Client(String value);
 	void post2server(String payload);
 	String getFromServer(void);
+	int getTime(void);
 };
 
 

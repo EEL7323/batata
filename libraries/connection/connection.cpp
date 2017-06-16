@@ -52,9 +52,9 @@ int connection::checkForClient()
 String connection::requestFromClient()
 {
 	String request = app.readStringUntil('\t');
-	app_card = (request.substring(1, 8)).toInt();
+	app_card = (request.substring(0, 8)).toInt();
 	app.flush();
-	return request.substring(9);
+	return request.substring(8);
 }
 
 /* This is the write to client method
@@ -89,4 +89,14 @@ String connection::getFromServer(void)
 	int httpCode = http.GET();
 	String payload = http.getString();
 	return payload;
+}
+
+
+int connection::getTime(void)
+{
+	HTTPClient http;
+	http.begin("http://192.168.137.1:8081/server/back-end/php/returnTime.php");
+	int httpCode = http.GET();
+	String payload = http.getString();
+	return payload.toInt();
 }
