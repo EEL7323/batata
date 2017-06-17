@@ -58,9 +58,12 @@ private slots:
 
     void requestLogs();
 
+    void requestInsideRU();
+
 private:
-    QString userlogin="13200964";
-    QString tagNumber = "0";
+    QString userlogin="13101258";
+    QString password = "";
+    QString tagNumber = "00000007";
     Ui::Widget *ui;
     QTcpSocket *mSocket;
     QNetworkAccessManager *nam;
