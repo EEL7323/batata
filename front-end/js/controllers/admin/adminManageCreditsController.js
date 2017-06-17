@@ -110,7 +110,7 @@ angular.module("ruServer").controller("adminManageCreditsCtrl", function ($scope
                     diffCreditCellphone: input.phoneIncrement,
                     diffCreditTag: input.cardIncrement
                 };
-                $http.post(config.serverBaseUrl + "updateCredits.php", _postData)
+                $http.post(config.serverBaseUrl + "createCreditEvents.php", _postData)
                     .then(function (response) {
                         $scope.showAlert = true;
                         $scope.errorText = response.data;

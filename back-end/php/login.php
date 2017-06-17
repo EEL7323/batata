@@ -6,6 +6,7 @@
 
 	$userRegistry = $data->registry;
 	$userPassword = sha1($data->password);
+	$fromApp = $data->fromApp;
 
 	$conn = new mysqli($serverName, $userName, $password, $dbName);
 
@@ -18,13 +19,16 @@
 		$result = $conn->query($sql);
 		$resultsFound = $result->num_rows;
 		if ($resultsFound == 1) {
-			$result = $result->fetch_assoc();
-			$token = random(7) . $result["access_level"] . random(8) . " | " . $userRegistry;
-			$tag_number = $result['tag_number'];
-			$sql = "UPDATE users SET web_token='$token' WHERE tag_number='$tag_number'";
-			$conn->query($sql);
-			if ($conn->error) echo "Authentication error - Server error while updating user: " . $conn->error;
-			else echo $token;
+			if ($fromApp == 0) {
+				$result = $result->fetch_assoc();
+				$token = random(7) . $result["access_level"] . random(8) . " | " . $userRegistry;
+				$tag_number = $result['tag_number'];
+				$sql = "UPDATE users SET web_token='$token' WHERE tag_number='$tag_number'";
+				$conn->query($sql);
+				if ($conn->error) echo "Authentication error - Server error while updating user: " . $conn->error;
+				else echo $token;
+			}
+			else echo "Login Successful";
 		}
 		else {
 			echo "Authentication error - User not found";

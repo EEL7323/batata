@@ -49,7 +49,8 @@ angular.module("ruServer").controller("loginCtrl", function ($scope, $http, $loc
     $scope.loginUser = function () {
         var _postData = {
             registry: $scope.input.registry,
-            password: $scope.input.password
+            password: $scope.input.password,
+			fromApp: 0
         };
 
         $http.post(config.serverBaseUrl + "login.php", _postData)

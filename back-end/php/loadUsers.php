@@ -1,13 +1,18 @@
 <?php
 	include("connection.php");
 
+	$data = json_decode(file_get_contents("php://input"));
+	
+	if ($data->registryNumber == "all") $sql = "SELECT name, registry_number, tag_number, cellphone_credit, card_credit, access_level FROM users";
+	else $sql = "SELECT name, registry_number, tag_number, cellphone_credit, card_credit, access_level FROM users WHERE `registry_number` = " . $data->registryNumber;
+	
 	$conn = new mysqli($serverName, $userName, $password, $dbName);
 
 	// Check connection
 
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {
-		$sql = "SELECT name, registry_number, tag_number, cellphone_credit, card_credit, access_level FROM users";
+		
 		$result = $conn->query($sql);
 		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->error;
 		else {

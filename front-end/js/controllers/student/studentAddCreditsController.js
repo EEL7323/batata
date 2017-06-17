@@ -60,7 +60,7 @@ angular.module("ruServer").controller("studentAddCreditsCtrl", function ($scope,
 
         if (_sameCreditCardNumber && _sameExpirationDate && _sameSecurityCode) {
 
-            $http.post(config.serverBaseUrl + "updateCredits.php", _postData)
+            $http.post(config.serverBaseUrl + "createCreditEvents.php", _postData)
                 .then(function (response) {
                     $scope.showAlert = true;
                     $scope.errorText = response.data;

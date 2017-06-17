@@ -7,7 +7,7 @@
 
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {
-		$sql = "SELECT tag_number, registry_number, name FROM users";
+		$sql = "SELECT tag_number, registry_number FROM users";
 		$result = $conn->query($sql);
 		if ($conn->error) echo "Error - Server error while consulting database: " . $conn->error;
 		else {
@@ -15,11 +15,11 @@
 			if ($resultsFound > 0) {				
 				$i = 0;
 				echo "[";
-				while($row = $result->fetch_assoc()) {
+				
+				while($row = $result->fetch_array()) {
 				$i = $i + 1;
 				$return["tagNumber"] = $row["tag_number"];
 				$return["registryNumber"] = $row["registry_number"];
-				$return["name"] = $row["name"];
 				echo json_encode($return);
 				if ($i != ($resultsFound)) echo ",";
 				}

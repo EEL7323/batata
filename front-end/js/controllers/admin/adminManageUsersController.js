@@ -40,7 +40,10 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
     };
 
     var _loadUsers = function () {
-        $http.get(config.serverBaseUrl + "loadUsers.php")
+		var _postData = {
+			registryNumber: "all"
+		};
+        $http.post(config.serverBaseUrl + "loadUsers.php", _postData)
             .then(function (response) {
                 $scope.users = response.data;
                 if (typeof ($scope.users) == "string") {
