@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include "event.h"
 #include <QWidget>
 #include <QNetworkAccessManager>
 #include <QUrl>
@@ -60,13 +61,32 @@ private slots:
 
     void requestInsideRU();
 
+    void on_hist_pushButtonRefresh_clicked();
+
+    void updateLastEvent();
+
+//BUY
+    void addCredits();
+
+    void on_buy_lineEditAmount_editingFinished();
+
+    void on_buy_pushButtonBuy_clicked();
+
 private:
-    QString userlogin="13101258";
+    QString userlogin="";
     QString password = "";
-    QString tagNumber = "00000007";
+    QString tagNumber = "";
+    QString creditsApp = "";
+    QString creditsCard = "";
+    QString username = "";
+    QString buy_credits = "";
     Ui::Widget *ui;
     QTcpSocket *mSocket;
     QNetworkAccessManager *nam;
+    Event eventos;
+    int events_counter;
 };
+
+
 
 #endif // WIDGET_H

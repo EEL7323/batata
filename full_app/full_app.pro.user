@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.2.1, 2017-06-17T15:03:56. -->
+<!-- Written by QtCreator 4.2.1, 2017-06-18T19:19:04. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -99,8 +99,8 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidPackageInstallationStep</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.3">
-      <value type="QString" key="BuildTargetSdk">android-25</value>
-      <value type="QString" key="KeystoreLocation"></value>
+      <value type="QString" key="BuildTargetSdk">android-19</value>
+      <value type="QString" key="KeystoreLocation">D:/Cc/Documents/UFSC/17.1/Android/full_app/android_release.keystore</value>
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>

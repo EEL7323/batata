@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = full_app
+TARGET = PotatoRU
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -24,9 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    event.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    event.h
 
 FORMS    += widget.ui
 
@@ -53,3 +55,14 @@ QT += network
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/network/http
 INSTALLS += target
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
