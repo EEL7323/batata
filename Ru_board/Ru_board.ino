@@ -47,6 +47,8 @@ gate entree(ENTREE_GATE, 3, 14);
 
 /**Function prototipes**/
 void checkTime(void);
+void synchronize(void);
+void solveEvent(const char*, const char*, const char*, const char*, const char*);
 /**     End        **/
 
 /*** Reserve memory space to json***/
@@ -96,7 +98,7 @@ bool Ru_open = false;
 
 void loop() {
 
-	syncronize();
+	synchronize();
 
 	/*
 	static bool Sync = false;
@@ -217,7 +219,7 @@ void checkTime(void)
 	}
 }
 
-void syncronize(void) {
+void synchronize(void) {
 	
 	// First, get the events to solve.
 	//HTTPClient http;
@@ -257,7 +259,7 @@ void syncronize(void) {
 					eventType = root["type"];
 					deltaApp = root["diffCredCellphone"];
 					deltaCard = root["diffCredTag"];
-
+					solveEvent(eventId, userId, eventType, deltaApp, deltaCard);
 					Serial.println("-----------------");
 					Serial.println(eventId);
 					Serial.println(userId);
@@ -298,28 +300,35 @@ void syncronize(void) {
 
 		
 	}
-
-	/*
-	JsonObject& root = jsonBuffer.parseObject(payload);
-	if (!root.success())
-	{
-		Serial.println("parseObject() failed");
-		return;
-	}
-	
-	const char* eventId = root["eventId"];
-	const char* userId = root["tagNumber"];
-	const char* eventType = root["type"];
-	const char* deltaApp = root["diffCredCellphone"];
-	const char* deltaCard = root["diffCredTag"];
-
-	Serial.println("-----------------");
-	Serial.println(eventId);
-	Serial.println(userId);
-	Serial.println(eventType);
-	Serial.println(deltaApp);
-	Serial.println(deltaCard);
-	Serial.println("-----------------");
-	*/
 	delay(7000);
+}
+
+void solveEvent(const char* eventId, const char* userId, const char* eventType, const char* deltaApp, const char* deltaCard) {
+	short int eventTY = atoi(eventType);
+	unsigned int IdEvent = atoi(eventId);
+	unsigned int card_id = atoi(userId);
+	unsigned short int deltaA = atoi(deltaApp);
+	unsigned short int deltaC = atoi(deltaCard);
+	//Serial.println(event-1);
+	switch (eventTY)
+	{
+	case 0:
+		//add new user
+		Users.insert(card_id, deltaA, deltaC, Users.root);
+		//post event solved or add to big array to post
+		break;
+	case 1: //delete user ? (check if this event will be sent by server)
+		Users.del(card_id, Users.root);
+		//post event solved or add to big array to post
+
+	case 5:
+		//add bought credits
+		Users.insertCredits(card_id, deltaA, deltaC, Users.root);
+		//post event solved or add to big array to post
+		break;
+
+	default://invalid eventType
+		// return something to warn about invalid event ?
+		break;
+	}
 }
