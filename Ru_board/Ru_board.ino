@@ -1,8 +1,10 @@
+#include <ArduinoJson.h>
 #include "connection.h"
 #include "captcha.h"
 #include "bstree.h"
 #include "card.h"
 #include "gate.h"
+
 
 
 /***Set connection parameters***/
@@ -13,9 +15,12 @@
 //const char* password = "J445143561";
 //const char* ssid = "VIVO-E290";
 //const char* password = "0003000640";
-const char* ssid = "Batata";
-const char* password = "batata2017";
-
+//const char* ssid = "Batata";
+//const char* password = "batata2017";
+//const char* ssid = "Monteiro";
+//const char* password = "11o666o9o17o";
+const char* ssid = "LEONARDO";
+const char* password = "53233301864";
 int server_port = 8564; //Server Listens in Port 80
 connection serverForApp(server_port); //Instantiates an connection object
 
@@ -43,6 +48,11 @@ gate entree(ENTREE_GATE, 3, 14);
 /**Function prototipes**/
 void checkTime(void);
 /**     End        **/
+
+/*** Reserve memory space to json***/
+
+/**     End        **/
+
 
 /*Begins the code setup*/
 void setup() {
@@ -86,14 +96,16 @@ bool Ru_open = false;
 
 void loop() {
 
+	syncronize();
 
+	/*
 	static bool Sync = false;
 	static String request = "";
 	
-	/***Syncronization Process**/
+	/Syncronization Process/
 	while ((!Ru_open) && (!Sync)) //When Ru is closed and no Sync was made do it
 	{
-		/***For now we only fill the tree one time***/
+		/For now we only fill the tree one time/
 		for (unsigned int i = 0; i < 5; i++)
 		{
 			Users.insert(i, 3, 3, Users.root);
@@ -191,6 +203,7 @@ void loop() {
 		checkTime();
 		delay(1);
 	}//End Ru_Open
+	*/
 
 }
 
@@ -202,4 +215,111 @@ void checkTime(void)
 		time = millis() - time;
 		Ru_open = serverForApp.getTime();
 	}
+}
+
+void syncronize(void) {
+	
+	// First, get the events to solve.
+	//HTTPClient http;
+	//http.begin("http://batata.dlinkddns.com/back-end/php/loadRuEvents.php");
+	//int httpCode = http.GET();
+	//Serial.println(httpCode);
+	//String payload = http.getString();
+	//Serial.println(payload);
+	String payload = "[{'eventId':'6','tagNumber':'515','type':'5','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'7','tagNumber':'1231231','type':'5','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'4', 'tagNumber' : '515', 'type' : '0', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}]";
+	//String payload = "{'eventId':'4', 'tagNumber' : '515', 'type' : '0', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}";
+	// Now parsing json:
+	//int indexArray [50000] = { 0 };
+	//indexArray[0] = 1;
+	int startIndex = 0;
+	const char* eventId;
+	const char* userId;
+	const char* eventType;
+	const char* deltaApp;
+	const char* deltaCard;
+
+	for (int i = 0; i < payload.length(); i++) {
+		//loop to check if it's a '}'
+			if (payload.substring(i, i + 1) == "}") {	
+				if (startIndex==0)//if is the first json, parse with substring(1,i+1)
+				{
+					StaticJsonBuffer<200> jsonBuffer;
+					Serial.println(payload.substring(1, i+1));
+					JsonObject& root = jsonBuffer.parseObject(payload.substring(1,i+1));
+					if (!root.success())
+					{
+						Serial.println("parseObject() failed");
+						return;
+					}
+
+					eventId = root["eventId"];
+					userId = root["tagNumber"];
+					eventType = root["type"];
+					deltaApp = root["diffCredCellphone"];
+					deltaCard = root["diffCredTag"];
+
+					Serial.println("-----------------");
+					Serial.println(eventId);
+					Serial.println(userId);
+					Serial.println(eventType);
+					Serial.println(deltaApp);
+					Serial.println(deltaCard);
+					Serial.println("-----------------");
+					startIndex = i + 2;
+				}
+				else {//else, parse with generic substring
+					StaticJsonBuffer<200> jsonBuffer;
+					JsonObject& root = jsonBuffer.parseObject(payload.substring(startIndex, i+1));
+					Serial.println(payload.substring(startIndex, i+1));
+					
+					if (!root.success())
+					{
+						Serial.println("parseObject() failed");
+						return;
+					}
+
+					const char* eventId = root["eventId"];
+					const char* userId = root["tagNumber"];
+					const char* eventType = root["type"];
+					const char* deltaApp = root["diffCredCellphone"];
+					const char* deltaCard = root["diffCredTag"];
+
+					Serial.println("-----------------");
+					Serial.println(eventId);
+					Serial.println(userId);
+					Serial.println(eventType);
+					Serial.println(deltaApp);
+					Serial.println(deltaCard);
+					Serial.println("-----------------");
+					startIndex = i + 2;
+				}
+				//indexArray[i] = i;
+			}
+
+		
+	}
+
+	/*
+	JsonObject& root = jsonBuffer.parseObject(payload);
+	if (!root.success())
+	{
+		Serial.println("parseObject() failed");
+		return;
+	}
+	
+	const char* eventId = root["eventId"];
+	const char* userId = root["tagNumber"];
+	const char* eventType = root["type"];
+	const char* deltaApp = root["diffCredCellphone"];
+	const char* deltaCard = root["diffCredTag"];
+
+	Serial.println("-----------------");
+	Serial.println(eventId);
+	Serial.println(userId);
+	Serial.println(eventType);
+	Serial.println(deltaApp);
+	Serial.println(deltaCard);
+	Serial.println("-----------------");
+	*/
+	delay(7000);
 }
