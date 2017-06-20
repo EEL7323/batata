@@ -38,9 +38,14 @@ $sqlCreateEventsTable = "CREATE TABLE IF NOT EXISTS events (
   to_resolve BIT,
   event_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )";
+  
+ $sqlCreateUsersBuffTable = "CREATE TABLE IF NOT EXISTS users_buff (
+  tag_number INT UNSIGNED PRIMARY KEY,
+  registry_number VARCHAR(10)
+  )";
 
 	// Admin user insertion query
-$sqlAddAdminUser = "INSERT INTO users (`tag_number`, `registry_number`, `name`, `access_level`, `password`, `cellphone_credit`, `card_credit`, `web_token`) VALUES (0, '00000000', 'Admin', 0, 'c73f7357c0a53dc07978cee4b77a3c322c7699e0', 0, 0, 'invalid')";
+$sqlAddAdminUser = "INSERT INTO users (`tag_number`, `registry_number`, `name`, `access_level`, `password`, `cellphone_credit`, `card_credit`, `web_token`) VALUES (0, '00000000', 'Admin', 0, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, 0, '')";
 $sqlAddUserEvent = "INSERT INTO events (`source_registry`, `target_registry`, `event_type`, `diff_cred_cellphone`, `diff_cred_tag`, `to_resolve`) VALUES (0, '00000000', 0, 0, 0, 0)";
 
 // Execution and tests
@@ -55,10 +60,10 @@ if ($conn->query($sqlCreateDatabase) === TRUE) {
 		echo("Connection failed: " . $conn->connect_error);
 	} 
 	else {
-		$creationResult = $conn->query($sqlCreateUsersTable) and $conn->query($sqlCreateEventsTable);
+		$creationResult = $conn->query($sqlCreateUsersTable) and $conn->query($sqlCreateEventsTable) and $sqlCreateUsersBuffTable;
 		
 		if ($creationResult) {
-			$insertionResult = $conn->query($sqlAddAdminUser) and $conn->query($sqlAddUserEvent);
+			$insertionResult = $conn->query($sqlAddAdminUser) and $conn->query($sqlAddUserEvent) and $conn->query($sqlCreateUsersBuffTable);
 			if ($insertionResult) echo("Insertion Successful"); 
 			else echo("Insertion Error: " . $conn->error);
 		}

@@ -9,16 +9,13 @@
 
 	// Check connection
 
-	if ($data->accessLevel == 1) $toResolve = 1;
-	else if ($data->accessLevel == 0) $toResolve = 0;
-
 	if ($data->oldPassword == "" || $data->newPassword == "") $sqlUpdateUser = "UPDATE users SET `tag_number` = " . $data->tagNumber . ", `name` = '" . $data->name . "', `access_level` = " . $data->accessLevel . " WHERE `registry_number` = '" . $data->targetRegistryNumber . "'";
 	else {
-		$sqlUpdateUser = "UPDATE users SET `tag_number` = " . $data->tagNumber . ", `name` = '" . $data->name . "', `access_level` = " . $data->accessLevel . ", `password` = '" . $newPassword ."' WHERE `registry_number` = '" . $data->targetRegistryNumber . "' AND `password` = '" . $oldPassword . "'";
+		$sqlUpdateUser = "UPDATE users SET `name` = '" . $data->name . "', `password` = '" . $newPassword ."' WHERE `registry_number` = '" . $data->targetRegistryNumber . "' AND `password` = '" . $oldPassword . "'";
 		$sqlCheckUserInfo = "SELECT registry_number FROM users WHERE registry_number = '" . $data->sourceRegistryNumber . "' AND `password` = '" . $oldPassword . "'";
 	}
 	
-	$sqlUpdateUserEvent = "INSERT INTO events (`source_registry`, `target_registry`, `event_type`, `diff_cred_cellphone`, `diff_cred_tag`, `to_resolve`) VALUES ('$data->sourceRegistryNumber', '$data->targetRegistryNumber', 2, 0, 0, $toResolve)";
+	$sqlUpdateUserEvent = "INSERT INTO events (`source_registry`, `target_registry`, `event_type`, `diff_cred_cellphone`, `diff_cred_tag`, `to_resolve`) VALUES ('$data->sourceRegistryNumber', '$data->targetRegistryNumber', 2, 0, 0, 0)";
 
 	if ($conn->connect_error) echo ("Error - Connection failed: " . $conn->connect_error);
 	else {

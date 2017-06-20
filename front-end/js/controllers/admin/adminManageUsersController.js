@@ -173,6 +173,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
                 _indexesToDelete.push(users.indexOf(user));
             }
         });
+		console.log(_postData);
         $http.post(config.serverBaseUrl + "deleteUsers.php", _postData)
             .then(function (response) {
                 $scope.showAlert = true;

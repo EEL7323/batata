@@ -1,9 +1,9 @@
 ﻿<div class="container jumbotron">
     <form name="editUserForm">
-        <input class="form-control margin-min" type="text" ng-model="user.name" name="name" placeholder="Name" ng-required="true" ng-pattern="/^[\wÃãÕõÉéÁáÚúÍíÀàÈèÜüÖö'ç ]{1,40}$/"/>
-        <input class="form-control margin-min" type="number" ng-model="user.tagNumber" name="tagNumber" placeholder="Tag Number" ng-required="true" />
-        <input class="form-control margin-min" type="text" ng-model="user.registryNumber" name="registryNumber" placeholder="Registry Number" ng-disabled="getMethod() == 'update'" ng-pattern="/^[0-9]{8,10}$/"/>        
-        <select class="form-control margin-min" ng-model="user.accessLevel" ng-required="true" name="accessLevel">
+        <input class="form-control margin-min" type="text" ng-model="user.name" name="name" placeholder="Name" ng-required="true" ng-pattern="/^[\wÃãÕõÉéÁáÚúÍíÀàÈèÜüÖö'ç. ]{1,40}$/"/>
+        <input class="form-control margin-min" type="number" ng-model="user.tagNumber" name="tagNumber" placeholder="Tag Number" ng-disabled="getMethod() == 'update'" ng-required="true" />
+        <input class="form-control margin-min" type="text" ng-model="user.registryNumber" name="registryNumber" placeholder="Registry Number" ng-required="true" ng-disabled="getMethod() == 'update'" ng-pattern="/^[0-9]{8,10}$/"/>        
+        <select class="form-control margin-min" ng-model="user.accessLevel" name="accessLevel" ng-required="true" ng-disabled="getMethod() == 'update'">
             <option value="">Select a type of user</option>
             <option value="1">Student</option>
             <option value="0">Server</option>
