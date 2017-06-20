@@ -93,7 +93,8 @@ bool bstree::insertCredits(unsigned int x, unsigned short int ac, unsigned short
 	This example insert a new student with card_id=123456789, with 10 app credits and 10 card credits, in a tree object called bst.
 	Root pointer from this object is bst.root.*/
 	bool out = false;
-	if (p == NULL || (find(x, p)->app_credit + ac) > 256 || (find(x, p)->card_credit + cc) > 256) {
+	student* test = find(x, p);
+	if (p == NULL || test==NULL || (find(x, p)->app_credit + ac) > 256 || (find(x, p)->card_credit + cc) > 256) {
 		out = false;; //return false if credit insertion fais for "id not found" or total credits > 256.
 					  //cout << "Id not found.\n";
 	}

@@ -11,15 +11,16 @@
 
 // const char* ssid = "steins";
 //const char* password = "12345678";
-const char* ssid = "GVT-5527";
-const char* password = "J445143561";
+//const char* ssid = "GVT-5527";
+//const char* password = "J445143561";
 //const char* ssid = "VIVO-E290";
 //const char* password = "0003000640";
 //const char* ssid = "Batata";
 //const char* password = "batata2017";
 //const char* ssid = "Monteiro";
 //const char* password = "11o666o9o17o";
-//const char* ssid = "LEONARDO";
+const char* ssid = "LEONARDO";
+const char* password = "53233301864";
 int server_port = 8564; //Server Listens in Port 80
 connection serverForApp(server_port); //Instantiates an connection object
 
@@ -214,56 +215,56 @@ void checkTime(void)
 }
 
 void synchronize(void) {
-	
+	Serial.println("Synchronizing...");
 	// First, get the events to solve.
-	//HTTPClient http;
-	//http.begin("http://batata.dlinkddns.com/back-end/php/loadRuEvents.php");
-	//int httpCode = http.GET();
-	//Serial.println(httpCode);
-	//String payload = http.getString();
-	//Serial.println(payload);
-	String payload = "[{'eventId':'6','tagNumber':'515','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'7','tagNumber':'1231231','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'4', 'tagNumber' : '515', 'type' : '5', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}]";
+	HTTPClient http;
+	http.begin("http://batata.dlinkddns.com/back-end/php/loadRuEvents.php");
+	int httpCode = http.GET();
+	Serial.println(httpCode);
+	String payload = http.getString();
+	Serial.println("RECIEVED PAYLOAD: "+payload);
+	//String payload = "[{'eventId':'6','tagNumber':'515','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'7','tagNumber':'1231231','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'4', 'tagNumber' : '515', 'type' : '5', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}]";
 	//String payload = "{'eventId':'4', 'tagNumber' : '515', 'type' : '0', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}";
+	if (payload == "") {//if payload is empty, there are no events to solve.
+		return;
+	}
+	else { //if payload is not empty, solve events.
 	// Now parsing json:
-	int startIndex = 1;
-	const char* eventId;
-	const char* userId;
-	const char* eventType;
-	const char* deltaApp;
-	const char* deltaCard;
-	for (int i = 0; i < payload.length(); i++) {
-		//loop to check if it's a '}'
-		if (payload.substring(i, i + 1) == "}")
-		{	
-			StaticJsonBuffer<200> jsonBuffer;
-			JsonObject& root = jsonBuffer.parseObject(payload.substring(startIndex, i+1));
-			Serial.println(payload.substring(startIndex, i+1));
-					
-			if (!root.success())
+		int startIndex = 1;
+		const char* eventId;
+		const char* userId;
+		const char* eventType;
+		const char* deltaApp;
+		const char* deltaCard;
+		for (int i = 0; i < payload.length(); i++) {
+			//loop to check if it's a '}' and parse payload
+			if (payload.substring(i, i + 1) == "}")
 			{
-				Serial.println("parseObject() failed");
-				return;
-			}
+				StaticJsonBuffer<200> jsonBuffer;
+				JsonObject& root = jsonBuffer.parseObject(payload.substring(startIndex, i + 1));
+				Serial.println(payload.substring(startIndex, i + 1));
 
-			eventId = root["eventId"];
-			userId = root["tagNumber"];
-			eventType = root["type"];
-			deltaApp = root["diffCredCellphone"];
-			deltaCard = root["diffCredTag"];
-			/*short int eventTY = ;
-			unsigned int IdEvent = ;
-			unsigned int card_id = ;
-			unsigned short int deltaA = ;
-			unsigned short int deltaC = ;*/
-			solveEvent(atoi(eventType), atoi(eventId), atoi(userId), atoi(deltaApp), atoi(deltaCard));
-			startIndex = i + 2;
-		}					
+				if (!root.success())
+				{
+					Serial.println("parseObject() failed");
+					return;
+				}
+
+				eventId = root["eventId"];
+				userId = root["tagNumber"];
+				eventType = root["type"];
+				deltaApp = root["diffCredCellphone"];
+				deltaCard = root["diffCredTag"];
+				solveEvent(atoi(eventType), atoi(eventId), atoi(userId), atoi(deltaApp), atoi(deltaCard));
+				startIndex = i + 2;
+			}
+		}
 	}
 }
 
 void solveEvent(short int eventTY, unsigned int IdEvent, unsigned int card_id, unsigned short int deltaA, unsigned short int deltaC)
 {
-	
+	Serial.println("Solving event "+String(IdEvent));
 	//HTTPClient http;
 	String payload = "";
 	int code_returned = 0;
@@ -273,37 +274,40 @@ void solveEvent(short int eventTY, unsigned int IdEvent, unsigned int card_id, u
 		//add new user
 		Users.insert(card_id, deltaA, deltaC, Users.root);
 		//prepare payload
-		payload = String(card_id) + "," + String(Users.find(card_id, Users.root)->app_credit) + "," + String(Users.find(card_id, Users.root)->card_credit) + "," + String(IdEvent);
+		payload = String(IdEvent);
 		//post event solved 
-		//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
+		//http.begin("http://batata.dlinkddns.com/back-end/php/resolveSingleEvent.php");
 		//code_returned = http.POST(payload);
-		Serial.println("Event solved.");
+		Serial.println("Event solved: "+String(IdEvent));
 		return;
 
 	case 1: //delete user  (send tag, 0, 0, event_id)
 		Users.del(card_id, Users.root);
 		//prepare paylaod
-		payload = String(card_id) + "," + '0' + "," + '0' + "," + String(IdEvent);
+		payload = String(IdEvent);
 		//post event solved
-		//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
+		//http.begin("http://batata.dlinkddns.com/back-end/php/resolveSingleEvent.php");
 		//code_returned = http.POST(payload);
-		Serial.println("Event solved.");
+		Serial.println("Event solved: " + String(IdEvent));
 		return;
 
 	case 5:
 		//add bought credits
-		Users.insertCredits(card_id, deltaA, deltaC, Users.root);
-		//prepare parameters to send
-		payload = String(card_id) + ","+String(Users.find(card_id,Users.root)->app_credit)+","+String(Users.find(card_id, Users.root)->card_credit)+","+String(IdEvent);
-		//post event solved 
-		//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
-		//code_returned = http.POST(payload);
-		Serial.println("Event solved.");
+		if (Users.insertCredits(card_id, deltaA, deltaC, Users.root)) {
+			//prepare parameters to send
+			payload = String(card_id) + "," + String(Users.find(card_id, Users.root)->app_credit) + "," + String(Users.find(card_id, Users.root)->card_credit) + "," + String(IdEvent);
+			//post event solved 
+			//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
+			//code_returned = http.POST(payload);
+			Serial.println("Event solved: " + String(IdEvent));
+		}
+		else 
+			Serial.println("Event not solved. User doesn't exist. Event Id: "+String(IdEvent));
 		return;
 
 	default://invalid eventType
 		// return something to warn about invalid event ?
-		Serial.println("Event not solved. Wrong event type");
+		Serial.println(+" Event"+String(IdEvent)+ "not solved. Wrong event type: "+String(eventTY));
 		return;
 	}
 }
