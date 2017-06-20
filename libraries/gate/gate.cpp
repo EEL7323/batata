@@ -19,7 +19,7 @@ gate::~gate()
 	return;
 }
 
-void gate::release(int card_id)
+void gate::release(int card_id, bool app_card)
 {
 	String payload;
 	status = GATE_RELEASED;
@@ -28,8 +28,8 @@ void gate::release(int card_id)
 	{
 		delay(100);
 	}
-	if (gate_func = ENTREE_GATE) payload = String(card_id) + ",3";
-	else payload = String(card_id) + ",4";
+	if (gate_func = ENTREE_GATE) payload = String(card_id) + ",3," + String(app_card);
+	else payload = String(card_id) + ",4," + String(app_card);
 	gate::postentry(payload);
 
 	gate::block();

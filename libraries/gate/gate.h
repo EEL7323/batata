@@ -30,7 +30,7 @@ public:
 
 	gate(bool mode, int Id, int sensor);
 	~gate();
-	void release(int card_id);
+	void release(int card_id, bool app_card);
 	void block(void);
 	bool getStatus();	
 	void postentry(String payload);

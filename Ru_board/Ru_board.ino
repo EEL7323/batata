@@ -92,26 +92,22 @@ void setup() {
 bool Ru_open = false;
 
 void loop() {
-
-	synchronize();
-	delay(2000);
-	/*
+	
 	static bool Sync = false;
 	static String request = "";
 	
-	/Syncronization Process/
+	/*Syncronization Process*/
 	while ((!Ru_open) && (!Sync)) //When Ru is closed and no Sync was made do it
 	{
-		/For now we only fill the tree one time/
-		for (unsigned int i = 0; i < 5; i++)
-		{
-			Users.insert(i, 3, 3, Users.root);
-		}
-		Ru_open = serverForApp.getTime();
+		/*For now we only fill the tree one time*/
+
+		synchronize();
+		checkTime();
 		Sync = true;
+		delay(300000);
 	}
 
-	checkTime();
+
 
 	while (Ru_open)
 	{
@@ -150,7 +146,7 @@ void loop() {
 						//Tell the app that the user is allowed to enter
 						serverForApp.write2Client("y");
 						//Finally we release the gate
-						entree.release(RuClient->card_id);
+						entree.release(RuClient->card_id, 1);
 						Serial.println("End transaction");
 					}
 					else serverForApp.write2Client("ooc");
@@ -189,7 +185,7 @@ void loop() {
 					Serial.println("Credits:");
 					Serial.println(RuClient->card_credit);
 					//Finally we release the gate
-					entree.release(RuClient->card_id);
+					entree.release(RuClient->card_id, 0);
 					Serial.println("End transaction");
 				}
 				else Serial.println("Out of credits");
@@ -200,7 +196,7 @@ void loop() {
 		checkTime();
 		delay(1);
 	}//End Ru_Open
-	*/
+	
 
 }
 
@@ -223,12 +219,12 @@ void synchronize(void) {
 	Serial.println(httpCode);
 	String payload = http.getString();
 	Serial.println("RECIEVED PAYLOAD: "+payload);
-	//String payload = "[{'eventId':'6','tagNumber':'515','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'7','tagNumber':'1231231','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'4', 'tagNumber' : '515', 'type' : '5', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}]";
-	//String payload = "{'eventId':'4', 'tagNumber' : '515', 'type' : '0', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}";
-	if (payload == "") {//if payload is empty, there are no events to solve.
+	if (payload == "") 
+	{//if payload is empty, there are no events to solve.
 		return;
 	}
-	else { //if payload is not empty, solve events.
+	else //if payload is not empty, solve events.
+	{
 	// Now parsing json:
 		int startIndex = 1;
 		const char* eventId;
@@ -236,13 +232,14 @@ void synchronize(void) {
 		const char* eventType;
 		const char* deltaApp;
 		const char* deltaCard;
-		for (int i = 0; i < payload.length(); i++) {
+		for (int i = 0; i < payload.length(); i++)
+		{
 			//loop to check if it's a '}' and parse payload
 			if (payload.substring(i, i + 1) == "}")
 			{
 				StaticJsonBuffer<200> jsonBuffer;
 				JsonObject& root = jsonBuffer.parseObject(payload.substring(startIndex, i + 1));
-				Serial.println(payload.substring(startIndex, i + 1));
+				//Serial.println(payload.substring(startIndex, i + 1)); // Debug feature
 
 				if (!root.success())
 				{
@@ -265,7 +262,7 @@ void synchronize(void) {
 void solveEvent(short int eventTY, unsigned int IdEvent, unsigned int card_id, unsigned short int deltaA, unsigned short int deltaC)
 {
 	Serial.println("Solving event "+String(IdEvent));
-	//HTTPClient http;
+	HTTPClient http;
 	String payload = "";
 	int code_returned = 0;
 	switch (eventTY)
@@ -276,29 +273,30 @@ void solveEvent(short int eventTY, unsigned int IdEvent, unsigned int card_id, u
 		//prepare payload
 		payload = String(IdEvent);
 		//post event solved 
-		//http.begin("http://batata.dlinkddns.com/back-end/php/resolveSingleEvent.php");
-		//code_returned = http.POST(payload);
+		http.begin("http://batata.dlinkddns.com/back-end/php/resolveSingleEvent.php");
+		code_returned = http.POST(payload);
 		Serial.println("Event solved: "+String(IdEvent));
 		return;
 
-	case 1: //delete user  (send tag, 0, 0, event_id)
+/*	case 1: //delete user  (send tag, 0, 0, event_id)
 		Users.del(card_id, Users.root);
 		//prepare paylaod
 		payload = String(IdEvent);
 		//post event solved
-		//http.begin("http://batata.dlinkddns.com/back-end/php/resolveSingleEvent.php");
-		//code_returned = http.POST(payload);
+		http.begin("http://batata.dlinkddns.com/back-end/php/resolveSingleEvent.php");
+		code_returned = http.POST(payload);
 		Serial.println("Event solved: " + String(IdEvent));
 		return;
-
+*/
 	case 5:
 		//add bought credits
-		if (Users.insertCredits(card_id, deltaA, deltaC, Users.root)) {
+		if (Users.insertCredits(card_id, deltaA, deltaC, Users.root)) 
+		{
 			//prepare parameters to send
 			payload = String(card_id) + "," + String(Users.find(card_id, Users.root)->app_credit) + "," + String(Users.find(card_id, Users.root)->card_credit) + "," + String(IdEvent);
 			//post event solved 
-			//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
-			//code_returned = http.POST(payload);
+			http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
+			code_returned = http.POST(payload);
 			Serial.println("Event solved: " + String(IdEvent));
 		}
 		else 
