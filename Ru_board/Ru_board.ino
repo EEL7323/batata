@@ -9,10 +9,10 @@
 
 /***Set connection parameters***/
 
-const char* ssid = "steins";
-const char* password = "12345678";
-//const char* ssid = "GVT-5527";
-//const char* password = "J445143561";
+// const char* ssid = "steins";
+//const char* password = "12345678";
+const char* ssid = "GVT-5527";
+const char* password = "J445143561";
 //const char* ssid = "VIVO-E290";
 //const char* password = "0003000640";
 //const char* ssid = "Batata";
@@ -47,13 +47,8 @@ gate entree(ENTREE_GATE, 3, 14);
 /**Function prototipes**/
 void checkTime(void);
 void synchronize(void);
-void solveEvent(String, String, String, String, String);
+void solveEvent(short int eventTY, unsigned int IdEvent, unsigned int card_id, unsigned short int deltaA, unsigned short int deltaC);
 /**     End        **/
-
-/*** Reserve memory space to json***/
-
-/**     End        **/
-
 
 /*Begins the code setup*/
 void setup() {
@@ -98,7 +93,7 @@ bool Ru_open = false;
 void loop() {
 
 	synchronize();
-
+	delay(2000);
 	/*
 	static bool Sync = false;
 	static String request = "";
@@ -227,97 +222,48 @@ void synchronize(void) {
 	//Serial.println(httpCode);
 	//String payload = http.getString();
 	//Serial.println(payload);
-	String payload = "[{'eventId':'6','tagNumber':'515','type':'5','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'7','tagNumber':'1231231','type':'5','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'4', 'tagNumber' : '515', 'type' : '0', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}]";
+	String payload = "[{'eventId':'6','tagNumber':'515','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'7','tagNumber':'1231231','type':'0','diffCredCellphone':'5','diffCredTag':'5'},{'eventId':'4', 'tagNumber' : '515', 'type' : '5', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}]";
 	//String payload = "{'eventId':'4', 'tagNumber' : '515', 'type' : '0', 'diffCredCellphone' : '0', 'diffCredTag' : '0'}";
 	// Now parsing json:
-	//int indexArray [50000] = { 0 };
-	//indexArray[0] = 1;
-	int startIndex = 0;
-	String eventId;
-	String userId;
-	String eventType;
-	String deltaApp;
-	String deltaCard;
-	const char* tempeventId;
-	const char* tempuserId;
-	const char* tempeventType;
-	const char* tempdeltaApp;
-	const char* tempdeltaCard;
+	int startIndex = 1;
+	const char* eventId;
+	const char* userId;
+	const char* eventType;
+	const char* deltaApp;
+	const char* deltaCard;
 	for (int i = 0; i < payload.length(); i++) {
 		//loop to check if it's a '}'
-			if (payload.substring(i, i + 1) == "}") {	
-				if (startIndex==0)//if is the first json, parse with substring(1,i+1)
-				{
-					StaticJsonBuffer<200> jsonBuffer;
-					Serial.println(payload.substring(1, i+1));
-					JsonObject& root = jsonBuffer.parseObject(payload.substring(1,i+1));
-					if (!root.success())
-					{
-						Serial.println("parseObject() failed");
-						return;
-					}
-					tempeventId = root["eventId"];
-					tempuserId = root["tagNumber"];
-					tempeventType = root["type"];
-					tempdeltaApp = root["diffCredCellphone"];
-					tempdeltaCard = root["diffCredTag"];
-					eventId = String(tempeventId);
-					userId = String(tempuserId);
-					eventType = String(tempeventType);
-					deltaApp = String(tempdeltaApp);
-					deltaCard = String(tempdeltaCard);
-					solveEvent(eventId, userId, eventType, deltaApp, deltaCard);
-					Serial.println("-----------------");
-					Serial.println(eventId);
-					Serial.println(userId);
-					Serial.println(eventType);
-					Serial.println(deltaApp);
-					Serial.println(deltaCard);
-					Serial.println("-----------------");
-					startIndex = i + 2;
-				}
-				else {//else, parse with generic substring
-					StaticJsonBuffer<200> jsonBuffer;
-					JsonObject& root = jsonBuffer.parseObject(payload.substring(startIndex, i+1));
-					Serial.println(payload.substring(startIndex, i+1));
+		if (payload.substring(i, i + 1) == "}")
+		{	
+			StaticJsonBuffer<200> jsonBuffer;
+			JsonObject& root = jsonBuffer.parseObject(payload.substring(startIndex, i+1));
+			Serial.println(payload.substring(startIndex, i+1));
 					
-					if (!root.success())
-					{
-						Serial.println("parseObject() failed");
-						return;
-					}
+			if (!root.success())
+			{
+				Serial.println("parseObject() failed");
+				return;
+			}
 
-					tempeventId = root["eventId"];
-					tempuserId = root["tagNumber"];
-					tempeventType = root["type"];
-					tempdeltaApp = root["diffCredCellphone"];
-					tempdeltaCard = root["diffCredTag"];
-					eventId = String(tempeventId);
-					userId = String(tempuserId);
-					eventType = String(tempeventType);
-					deltaApp = String(tempdeltaApp);
-					deltaCard = String(tempdeltaCard);
-					solveEvent(eventId, userId, eventType, deltaApp, deltaCard);
-					Serial.println("-----------------");
-					Serial.println(eventId);
-					Serial.println(userId);
-					Serial.println(eventType);
-					Serial.println(deltaApp);
-					Serial.println(deltaCard);
-					Serial.println("-----------------");
-					startIndex = i + 2;
-				}
-			}		
+			eventId = root["eventId"];
+			userId = root["tagNumber"];
+			eventType = root["type"];
+			deltaApp = root["diffCredCellphone"];
+			deltaCard = root["diffCredTag"];
+			/*short int eventTY = ;
+			unsigned int IdEvent = ;
+			unsigned int card_id = ;
+			unsigned short int deltaA = ;
+			unsigned short int deltaC = ;*/
+			solveEvent(atoi(eventType), atoi(eventId), atoi(userId), atoi(deltaApp), atoi(deltaCard));
+			startIndex = i + 2;
+		}					
 	}
-	delay(2000);
 }
 
-void solveEvent(String eventId, String userId, String eventType, String deltaApp, String deltaCard) {
-	short int eventTY = eventType.toInt();
-	unsigned int IdEvent = eventId.toInt();
-	unsigned int card_id = userId.toInt();
-	unsigned short int deltaA = deltaApp.toInt();
-	unsigned short int deltaC = deltaCard.toInt();
+void solveEvent(short int eventTY, unsigned int IdEvent, unsigned int card_id, unsigned short int deltaA, unsigned short int deltaC)
+{
+	
 	//HTTPClient http;
 	String payload = "";
 	int code_returned = 0;
@@ -332,8 +278,8 @@ void solveEvent(String eventId, String userId, String eventType, String deltaApp
 		//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
 		//code_returned = http.POST(payload);
 		Serial.println("Event solved.");
+		return;
 
-		break;
 	case 1: //delete user  (send tag, 0, 0, event_id)
 		Users.del(card_id, Users.root);
 		//prepare paylaod
@@ -342,8 +288,8 @@ void solveEvent(String eventId, String userId, String eventType, String deltaApp
 		//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
 		//code_returned = http.POST(payload);
 		Serial.println("Event solved.");
+		return;
 
-		break;
 	case 5:
 		//add bought credits
 		Users.insertCredits(card_id, deltaA, deltaC, Users.root);
@@ -353,10 +299,11 @@ void solveEvent(String eventId, String userId, String eventType, String deltaApp
 		//http.begin("http://batata.dlinkddns.com/back-end/php/updateCredits.php");
 		//code_returned = http.POST(payload);
 		Serial.println("Event solved.");
-		break;
+		return;
+
 	default://invalid eventType
 		// return something to warn about invalid event ?
 		Serial.println("Event not solved. Wrong event type");
-		break;
+		return;
 	}
 }
