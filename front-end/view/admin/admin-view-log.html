@@ -1,0 +1,28 @@
+﻿<div class="container jumbotron">
+    <hr ng-show="logs.length > 0" />
+    <input class="form-control" type="text" ng-model="searchCriteria" placeholder="What are you looking for?" ng-show="logs.length > 0" />
+    <hr ng-show="logs.length > 0" />
+    <table class="table" ng-show="logs.length > 0">
+        <tr>
+            <th ng-if="bigScreen"><span ng-class="sourceIdClass"></span><a ng-click="orderBy('sourceId')"> Event Source&#160</a></th>
+            <th><span ng-class="targetIdClass"></span><a ng-click="orderBy('targetId')"> Event Target&#160</a></th>
+            <th><span ng-class="typeClass"></span><a ng-click="orderBy('type')"> Event Type&#160</a></th>
+            <th>Phone &#916$</th>
+            <th>Card &#916$</th>
+            <th ng-if="bigScreen">To be resolved by board</th>
+            <th><span ng-class="timeClass"></span><a ng-click="orderBy('time')"> Time&#160</a></th>
+        </tr>
+        <tr ng-class="" ng-repeat="log in logs | filter:searchCriteria | orderBy: orderCriteria:orderDirection">
+            <td ng-if="bigScreen" style="vertical-align: middle">{{log.sourceId}}</td>
+            <td style="vertical-align: middle">{{log.targetId}}</td>
+            <td style="vertical-align: middle">{{log.type | eventName}}</td>
+            <td style="vertical-align: middle">{{log.diffCredCellphone}}</td>
+            <td style="vertical-align: middle">{{log.diffCredTag}}</td>
+            <td ng-if="bigScreen" style="vertical-align: middle">{{log.toResolve}}</td>
+            <td style="vertical-align: middle">{{log.time | date: "yyyy/MM/dd HH:mm"}}</td>
+        </tr>
+    </table>
+    <hr ng-show="logs.length > 0" />
+    <a class="btn btn-danger btn-block" ng-click="clearLogs(logs)" ng-show="logs.length > 0">Clear log history</a>
+    <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
+</div>

@@ -1,0 +1,21 @@
+﻿<div class="jumbotron container padding-top-min"> <!-- Criar condição de usuário logado ou não -->
+    <div class="row">
+        <div class="col-sm-12">
+            <img class="img-responsive text-center" align="middle" style="max-width:100px; max-height:100px; margin: auto" src="http://ru.ufsc.br/wp-content/themes/brasilGovInterno/img/brasao_default.png" alt="UFSC logo" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="text-center">Welcome to UFSC's Refectory (RU) Server</h3>
+            <h6 class="text-center">Please, login with your RU account</h6>
+        </div>
+    </div>
+    <hr />
+    <form name="contatoForm">
+        <input class="form-control margin-min" type="text" ng-model="input.registry" name="userid" placeholder="User ID" ng-required="true" ng-pattern="/^[0-9]{8,10}$/"/>
+        <input class="form-control margin-min" type="password" ng-model="input.password" name="password" placeholder="Password" ng-required="true" ng-pattern="/^[\w]{1,30}$/" />
+    </form>
+    <hr />
+    <button class="btn btn-primary btn-block margin-min" ng-click="contatoForm.$invalid || loginUser()" ng-disabled="contatoForm.$invalid">Login</button>
+    <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
+</div>

@@ -1,0 +1,27 @@
+﻿<div class="container jumbotron">
+    <form name="editUserForm">
+        <input class="form-control margin-min" type="text" ng-model="user.name" name="name" placeholder="Name" ng-required="true" ng-pattern="/^[\wÃãÕõÉéÁáÚúÍíÀàÈèÜüÖö'ç. ]{1,40}$/"/>
+        <input class="form-control margin-min" type="number" ng-model="user.tagNumber" name="tagNumber" placeholder="Tag Number" ng-disabled="getMethod() == 'update'" ng-required="true" />
+        <input class="form-control margin-min" type="text" ng-model="user.registryNumber" name="registryNumber" placeholder="Registry Number" ng-required="true" ng-disabled="getMethod() == 'update'" ng-pattern="/^[0-9]{8,10}$/"/>        
+        <select class="form-control margin-min" ng-model="user.accessLevel" name="accessLevel" ng-required="true" ng-disabled="getMethod() == 'update'">
+            <option value="">Select a type of user</option>
+            <option value="1">Student</option>
+            <option value="0">Server</option>
+        </select>
+    </form>
+    <div class="checkbox" ng-show="isSameUser()">
+        <label><input type="checkbox" ng-model="changePassword">Change password</label>
+    </div>
+    <hr />
+    <form name="editPasswordForm" ng-show="changePassword">
+        <input class="form-control margin-min" type="text" ng-model="user.oldPassword" name="oldPassword" placeholder="Type your old password" ng-required="changePassword" ng-pattern="/^[\w]{1,30}$/"/>
+        <input class="form-control margin-min" type="text" ng-model="user.newPassword" name="newPassword" placeholder="Type your new password" ng-required="changePassword" ng-pattern="/^[\w]{1,30}$/"/>
+        <input class="form-control margin-min" type="text" ng-model="user.newPasswordConfirm" name="newPasswordConfirm" placeholder="Confirm your new password" ng-required="changePassword" ng-pattern="/^[\w]{1,30}$/"/>
+    </form>
+    <hr ng-show="changePassword" />
+    <div class="row">
+        <div class="col-sm-6"><a class="btn btn-primary btn-block" ng-click="editPasswordForm.$invalid || editUserForm.$invalid || saveUser(user)" ng-disabled="editPasswordForm.$invalid || editUserForm.$invalid">Save</a></div>
+        <div class="col-sm-6"><a class="btn btn-danger btn-block" href="#!/admin/manage-users">Cancel</a></div>
+    </div>
+    <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
+</div>

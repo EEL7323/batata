@@ -1,0 +1,34 @@
+﻿<div class="container jumbotron">
+    <hr ng-show="dataAvailable" />
+    <div class="row" ng-show="dataAvailable">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"># Card credits</div>
+                <div class="panel-body">{{info.cardCredits}}</div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"># Cellphone credits</div>
+                <div class="panel-body">{{info.cellphoneCredits}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="dataAvailable">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"># Students inside RU</div>
+                <div class="panel-body">{{info.insideRU}}</div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"># Number of times visited RU</div>
+                <div class="panel-body">{{info.numberOfEntries}}</div>
+            </div>
+        </div>
+    </div>
+    <hr ng-show="dataAvailable" />
+    <a ng-show="dataAvailable" class="btn btn-primary btn-block" ng-click="refresh()">Refresh</a>
+    <div ng-show="showAlert" class="alert text-center margin-alert" ng-class="getColor()">{{errorText}}</div>
+</div>
