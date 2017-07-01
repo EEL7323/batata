@@ -708,7 +708,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="info">
          <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -2069,7 +2069,7 @@ de Eventos</string>
             <property name="maximumSize">
              <size>
               <width>700</width>
-              <height>800</height>
+              <height>600</height>
              </size>
             </property>
             <property name="font">
@@ -2836,7 +2836,7 @@ Catraca</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>192.168.25.6</string>
+                 <string>192.168.137.223</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -2897,7 +2897,7 @@ Catraca</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>80</string>
+                 <string>8564</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>

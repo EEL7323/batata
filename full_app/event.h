@@ -1,3 +1,6 @@
+/*
+ * Event Class Implementation
+ */
 #ifndef EVENT_H
 #define EVENT_H
 #include <QString>
@@ -7,7 +10,8 @@
 class Event
 {
 public:
-    Event();
+    // Methods used to manipulate Events
+	Event();
     Event(QJsonObject);
     Event(QString, QString, QString, QString);
     QString getTime();
@@ -19,6 +23,7 @@ public:
 
 
 private:
+	// Events atributes (with an unimportant default value).
     QString time ="2017-01-01 00:00:01";
     QString diffApp ="0";
     QString diffCard ="0";

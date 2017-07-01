@@ -1,3 +1,7 @@
+/*
+ * Main file, to run the app.
+ */
+ 
 #include "widget.h"
 #include <QApplication>
 
