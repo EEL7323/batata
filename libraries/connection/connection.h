@@ -21,7 +21,9 @@ class connection : public WiFiServer
 	bool status;
 	int port;
 	int request_code;
+	
 public:
+	int app_card;
 
 	connection(int set_port);
 	~connection();
@@ -32,6 +34,7 @@ public:
 	void write2Client(String value);
 	void post2server(String payload);
 	String getFromServer(void);
+	int getTime(void);
 };
 
 
