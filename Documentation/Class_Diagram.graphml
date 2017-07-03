@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
-  <!--Created by yEd 3.17-->
+  <!--Created by yEd 3.16.2.1-->
   <key attr.name="Description" attr.type="string" for="graph" id="d0"/>
   <key for="port" id="d1" yfiles.type="portgraphics"/>
   <key for="port" id="d2" yfiles.type="portgeometry"/>
@@ -20,14 +20,14 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="565.3730468750001" width="663.083333333333" x="751.1635538736982" y="-222.03662109375009"/>
+              <y:Geometry height="619.5505544796044" width="663.083333333333" x="751.1635538736982" y="-249.1253748960522"/>
               <y:Fill color="#BBFFBB" transparent="false"/>
               <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
               <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#99FF99" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="663.083333333333" x="0.0" y="0.0">Aplicativo</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
-              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="27" leftF="26.574497501148926" right="0" rightF="0.0" top="0" topF="0.0"/>
             </y:GroupNode>
             <y:GroupNode>
               <y:Geometry height="50.0" width="50.0" x="534.703125" y="-23.37646484374997"/>
@@ -47,10 +47,10 @@
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
-              <y:Geometry height="253.0" width="188.0" x="766.1635538736982" y="75.33642578125"/>
+              <y:Geometry height="253.0" width="235.08403361344529" x="792.7380513748471" y="-54.66186523437497"/>
               <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
               <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="40.82275390625" x="73.588623046875" y="3.0">Aluno<y:LabelModel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="39.40087890625" x="97.84157735359764" y="3.0">Event<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
                 <y:ModelParameter>
@@ -58,22 +58,20 @@
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>-matrícula
--senha
--créditos
-+status (dentro do RU?)
--compras
--passes usados
-</y:AttributeLabel>
-                <y:MethodLabel>int Get (int atributo)
-void Sets (int atributo)
-Sincronizar com servidor 
-void Comprar passe (int valor)
-int Adquirir código (void)
-void Entrar no RU (void)
-void consultar histórico (void)
-int consultar # de pessoas(void)
-</y:MethodLabel>
+                <y:AttributeLabel>+QString time;
++QString diffApp;
++QString diffCard;
++QString type;
++QString resolved;</y:AttributeLabel>
+                <y:MethodLabel>Event();
+Event(QJsonObject);
+Event(QString, QString, QString, QString);
+QString getTime();
+QString getDiffApp();
+QString getDiffCard();
+QString getType();
+QColor getResolved();
+void setAll(QJsonObject);</y:MethodLabel>
               </y:UML>
             </y:UMLClassNode>
           </data>
@@ -82,10 +80,10 @@ int consultar # de pessoas(void)
           <data key="d4"/>
           <data key="d6">
             <y:UMLClassNode>
-              <y:Geometry height="211.75" width="415.08333333333303" x="984.1635538736982" y="116.58642578125"/>
+              <y:Geometry height="567.1740896358544" width="309.61509803921535" x="1089.631789167816" y="-211.7489100523022"/>
               <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
               <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="144.15625" x="135.46354166666652" y="3.0">Conexão com servidor<y:LabelModel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="47.32275390625" x="131.14617206648268" y="3.0">Widget<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
                 <y:ModelParameter>
@@ -93,49 +91,41 @@ int consultar # de pessoas(void)
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>-status
--ip
-+protocolo
-+struct mensagem
--duração (timeout)
-</y:AttributeLabel>
-                <y:MethodLabel>void conectar(void)
-void desconectar(void)
-mensagem preparar mensagem no protocolo(&amp;payload, struct mensagem)
-void enviar mensagem(&amp;mensagem)
-void receber_mensagem (&amp;mensagem)
-int sincronização sincronizar(void)</y:MethodLabel>
-              </y:UML>
-            </y:UMLClassNode>
-          </data>
-        </node>
-        <node id="n0::n2">
-          <data key="d4"/>
-          <data key="d6">
-            <y:UMLClassNode>
-              <y:Geometry height="203.9375" width="309.25" x="927.4389905938409" y="-184.66015625000009"/>
-              <y:Fill color="#CCFFFF" color2="#99CCFF" transparent="false"/>
-              <y:BorderStyle color="#808080" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="136.93896484375" x="86.155517578125" y="3.0">Conexão com a placa<y:LabelModel>
-                  <y:SmartNodeLabelModel distance="4.0"/>
-                </y:LabelModel>
-                <y:ModelParameter>
-                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
-                </y:ModelParameter>
-              </y:NodeLabel>
-              <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-                <y:AttributeLabel>-url
--status
--protocolo
--duração (timeout)
-</y:AttributeLabel>
-                <y:MethodLabel>void conectar (int *handler)
-void desconectar(int *handler)
-*message preparar mensagem no protocolo (&amp;message)
-void enviar msg (&amp;message)
-void receber msg (void)
-bool flag solicitar acesso ao RU (int matricula)
-</y:MethodLabel>
+                <y:AttributeLabel>+QString userlogin;
++QString password;
++QString tagNumber;
++QString creditsApp;
++QString creditsCard;
++QString username;
++QString buy_credits;
++Ui::Widget *ui;
++QTcpSocket *mSocket;
++QNetworkAccessManager *nam;
++Event eventos;
++int events_counter;</y:AttributeLabel>
+                <y:MethodLabel>explicit Widget(QWidget *parent = 0);
+~Widget();
+void on_pushButtonLogin_clicked();
+void on_pushButton_info_clicked();
+void on_pushButton_buy_clicked();
+void on_pushButton_hist_clicked();
+void on_pushButton_turn_clicked();
+int authLogin();
+void on_turn_connect_clicked();
+void on_turn_IP_field_editingFinished();
+void on_turn_port_field_editingFinished();
+void on_turn_IP_field_returnPressed();
+void on_turn_port_field_returnPressed();
+void on_turn_captcha_field_returnPressed();
+void on_info_pushButtonRefresh_clicked();
+void requestUser();
+void requestLogs();
+void requestInsideRU();
+void on_hist_pushButtonRefresh_clicked();
+void updateLastEvent();
+void addCredits();
+void on_buy_lineEditAmount_editingFinished();
+void on_buy_pushButtonBuy_clicked();</y:MethodLabel>
               </y:UML>
             </y:UMLClassNode>
           </data>
@@ -489,6 +479,18 @@ void executarQuery (string query, string&amp; retorno)
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-404.07099897461967" ty="266.81707031250005"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="none"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="n0::e0" source="n0::n0" target="n0::n1">
+      <data key="d8"/>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="none"/>
           <y:BendStyle smoothed="false"/>
