@@ -1,8 +1,11 @@
+// Service authentication service to check user's token and log him in
 angular.module("ruServer").service("authenticationService", function ($http, config) {
 
+    // Checks the token stored in local storage
     var _checkToken = function (token) {
         var _data = { token: token };
 
+        // Post request to read if there is any user with the token given in post data
         var ret = $http.post(config.serverBaseUrl + "checkToken.php", _data)
                     .then(function (response) {
                         if (typeof (response.data) == "object") {
@@ -41,7 +44,7 @@ angular.module("ruServer").service("authenticationService", function ($http, con
                     }
                 
                 })
-                .catch(function (error) {
+                .catch(function (error) { // Error handling
                     return {
                         error: error,
                         access: false,

@@ -6,6 +6,9 @@
     yellow: #FEE300
 */
 
+/* Custom styles used in the screens */
+
+/* Footer style */
 .footer, .footer:hover, .footer:visited {
     text-align: center;
     background-color: #003893;
@@ -15,10 +18,12 @@
     font-size: 14px;
 }
 
+/* Padding style */
 .padding-top-min {
     padding-top: 5px;
 }
 
+/* Margin styles */
 .margin-min {
     margin: 5px;
 }
@@ -27,6 +32,7 @@
     margin: 15px 5px 5px 15px;
 }
 
+/* Navigation button style */
 .btn-nav {
     border-radius: 0px;
     border: 0px;

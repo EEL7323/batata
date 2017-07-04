@@ -2,15 +2,19 @@ angular.module("ruServer").controller("studentLogCtrl", function ($scope, $http,
 
     // Variables declaration or attribution
 
+    // Variables of the error alert
     $scope.showAlert = false;
     $scope.isError = false;
     $scope.errorText = "";
 
+    // Variables of the filter
     $scope.orderCriteria = 'time';
     $scope.orderDirection = false;
 
+    // Variable to get the size of the device which is loading the page, because in small devices (as smartphones), some columns doesn't appear
     $scope.bigScreen = $window.innerWidth > 700 ? true : false;
 
+    // Initialization of variable logs, used to feed the table showed in the screen
     $scope.logs = [{
         id: 0,
         sourceId: "",
@@ -22,10 +26,12 @@ angular.module("ruServer").controller("studentLogCtrl", function ($scope, $http,
         time: ""
     }];
 
+    // Variable that stores the value of the token
     var _token = localStorage['ruServer'];
 
     // Functions declaration
 
+    // Utilization of the authentication service to check if the user is allowed to be in this page, if not load the login page
     var _checkAuthenticationForPage = function () {
         if (typeof (_token) != "undefined") {
             authenticationService.checkToken(_token)
@@ -42,6 +48,7 @@ angular.module("ruServer").controller("studentLogCtrl", function ($scope, $http,
         else $location.path("/login");
     };
 
+    // Function to rotate an array
     var _rotateArray = function (array) {
         var _size = array.length;
         var _newArray = [];
@@ -51,34 +58,7 @@ angular.module("ruServer").controller("studentLogCtrl", function ($scope, $http,
         return _newArray;
     };
 
-    var _loadLogs = function () {
-        _targetRegistry = _token.slice(19);
-        var _postData = {
-            targetRegistry: _targetRegistry
-        };
-
-        $http.post(config.serverBaseUrl + "loadLogs.php", _postData)
-            .then(function (response) {
-                if (typeof (response.data) == "array") {
-                    response.data.forEach(function (index) {
-                        index.time = new Date(index.time.slice(0, 4), index.time.slice(5, 7) - 1, index.time.slice(8, 10),
-                            index.time.slice(11, 13), index.time.slice(14, 16), index.time.slice(17, 19), 0);
-                    });
-                }
-                $scope.logs = response.data;
-                if (typeof ($scope.logs) == "string") {
-                    $scope.showAlert = true;
-                    $scope.isError = true;
-                    $scope.errorText = $scope.logs;
-                    $scope.logs = [];
-                }
-            })
-            .catch(function (error) {
-                $rootScope.phpError = error.data;
-                $location.path("/error");
-            });
-    };
-
+    // Function to order data showed in the table
     $scope.orderBy = function (field) {
         $scope.orderCriteria = field;
         $scope.orderDirection = !$scope.orderDirection;
@@ -113,9 +93,39 @@ angular.module("ruServer").controller("studentLogCtrl", function ($scope, $http,
         }
     };
 
+    // Function to change the color of the warning box, depending if there is an error or not
     $scope.getColor = function () {
         if ($scope.isError == true) return "alert-danger";
         else return "alert-success";
+    };
+
+    // Function to load all logs in the table events in database
+    var _loadLogs = function () {
+        _targetRegistry = _token.slice(19);
+        var _postData = {
+            targetRegistry: _targetRegistry
+        };
+        // Post request to load logs data from the user passed in postData
+        $http.post(config.serverBaseUrl + "loadLogs.php", _postData)
+            .then(function (response) {
+                if (typeof (response.data) == "array") {
+                    response.data.forEach(function (index) {
+                        index.time = new Date(index.time.slice(0, 4), index.time.slice(5, 7) - 1, index.time.slice(8, 10),
+                            index.time.slice(11, 13), index.time.slice(14, 16), index.time.slice(17, 19), 0);
+                    });
+                }
+                $scope.logs = response.data;
+                if (typeof ($scope.logs) == "string") {
+                    $scope.showAlert = true;
+                    $scope.isError = true;
+                    $scope.errorText = $scope.logs;
+                    $scope.logs = [];
+                }
+            })
+            .catch(function (error) { // Error handling
+                $rootScope.phpError = error.data;
+                $location.path("/error");
+            });
     };
 
     // Initalization

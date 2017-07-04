@@ -2,10 +2,12 @@ angular.module("ruServer").controller("mainCtrl", function ($scope, authenticati
 
     // Variables declaration or attribution
 
+    // Variable that stores the value of the token
     var _token = localStorage['ruServer'];
 
     // Functions declaration
 
+    // Function to check if the user is already authenticated and redirect him to the home page
     var _mainRedirect = function () {
         if (typeof (_token) != "undefined") {
             authenticationService.checkToken(_token)
@@ -89,6 +91,7 @@ angular.module("ruServer").controller("mainCtrl", function ($scope, authenticati
         }
     };
 
+    // Function to logout the user when it clicks on logout button
     $scope.logout = function () {
         localStorage.removeItem("ruServer");
         $location.path("/login");

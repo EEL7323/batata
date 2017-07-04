@@ -1,3 +1,4 @@
+// Declaration of the filter eventName, used to transform the number of the event in a readable meaning
 angular.module("ruServer").filter("eventName", function () {
     var _selectName = function (input) {
         switch (input) {

@@ -1,3 +1,5 @@
+// Route provider to feed the single page application. Pages can be accessed by the path indicated after 'when'
+
 angular.module("ruServer").config(function ($routeProvider) {
 
     $routeProvider
@@ -45,5 +47,5 @@ angular.module("ruServer").config(function ($routeProvider) {
             templateUrl: "view/error.html",
             controller: "errorCtrl"
         })
-        .otherwise({ redirectTo: "/login" });
+        .otherwise({ redirectTo: "/login" }); // If path not found, it loads automatically the login page
 });

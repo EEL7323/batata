@@ -1,3 +1,4 @@
+// Declaration of the interceptor editUserInterceptor, used to return the admin user to the manage users page after updating one user and showing admin a message
 angular.module("ruServer").factory("editUserInterceptor", function ($q, $rootScope, $timeout, $location) {
     return {
         request: function (config) {

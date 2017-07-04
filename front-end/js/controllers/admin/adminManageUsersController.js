@@ -2,13 +2,16 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
 
     // Variables declaration or attribution
 
+    // Variables of the error alert
     $scope.showAlert = false;
     $scope.isError = false;
     $scope.errorText = "";
 
+    // Variables of the filter
     $scope.orderCriteria = 'name';
     $scope.orderDirection = false;
 
+    // Initialization of variable users, used to feed the table showed in the screen
     $scope.users = [{
         name: "",
         registryNumber: "",
@@ -19,10 +22,12 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         checked: false
     }];
 
+    // Variable that stores the value of the token
     var _token = localStorage['ruServer'];
 
     // Functions declaration
 
+    // Utilization of the authentication service to check if the user is allowed to be in this page, if not load the login page
     var _checkAuthenticationForPage = function () {
         if (typeof (_token) != "undefined") {
             authenticationService.checkToken(_token)
@@ -39,10 +44,12 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         else $location.path("/login");
     };
 
+    // Function to load basic information of the users
     var _loadUsers = function () {
 		var _postData = {
 			registryNumber: "all"
-		};
+        };
+        // Post request to get data from loadUsers.php, with the _postData indicating that it should load data from all users
         $http.post(config.serverBaseUrl + "loadUsers.php", _postData)
             .then(function (response) {
                 $scope.users = response.data;
@@ -52,13 +59,14 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
                     $scope.errorText = $scope.users;
                     $scope.users = [];
                 }
-            })
+            }) // Error handling
             .catch(function (error) {
                 $rootScope.phpError = error.data;
                 $location.path("/error");
             });
     };
 
+    // Function to rotate an array
     var _rotateArray = function (array) {
         var _size = array.length;
         var _newArray = [];
@@ -68,6 +76,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         return _newArray;
     };
 
+    // Function to order data showed in the table
     $scope.orderBy = function (field) {
         $scope.orderCriteria = field;
         $scope.orderDirection = !$scope.orderDirection;
@@ -98,11 +107,13 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         }
     };
 
+    // Function to change the color of the warning box, depending if there is an error or not
     $scope.getColor = function () {
         if ($scope.isError == true) return "alert-danger";
         else return "alert-success";
     };
 
+    // Count the number of rows where the checkbox is checked
     $scope.countChecked = function (users) {
         _acum = 0;
         if (typeof(users) == "object") {
@@ -113,6 +124,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         return _acum;
     };
 
+    // Function to toggle/untoggle all checkboxes
     $scope.toggleAll = function (toggle, users) {
         if (typeof(users) == "object") {
             users = users.filter(function (user) {
@@ -133,6 +145,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         }
     };
 
+    // Function to go to the form to insert a new user
     $scope.insertUser = function () {
         $location.path("/admin/manage-users/edit-user");
         $rootScope.selUser = {
@@ -144,6 +157,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         $rootScope.editUserMethod = "Insert user info";
     };
 
+    // Function to go to the pre filled form to edit an user
     $scope.editUser = function (users) {
         $location.path("/admin/manage-users/edit-user");
         users.forEach(function (user) {
@@ -159,6 +173,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
         });
     };
 
+    // Function to delete an user in the database and update the list
     $scope.deleteUsers = function (users) {
         var _accessLevel = _token.slice(7, 8);
         var _sourceAdmin = _token.slice(19);
@@ -173,7 +188,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
                 _indexesToDelete.push(users.indexOf(user));
             }
         });
-		console.log(_postData);
+        // Post request to delete selected users stored in the array usersToDelete
         $http.post(config.serverBaseUrl + "deleteUsers.php", _postData)
             .then(function (response) {
                 $scope.showAlert = true;
@@ -187,7 +202,7 @@ angular.module("ruServer").controller("adminManageUsersCtrl", function ($scope, 
                     });
                 }
             })
-            .catch(function (error) {
+            .catch(function (error) { // Error handling
                 $rootScope.phpError = error.data;
                 $location.path("/error");
             });

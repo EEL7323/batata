@@ -1,3 +1,4 @@
+// Declaration of the interceptor loadingInterceptor, used to show a loading message when the user logs in
 angular.module("ruServer").factory("loadingInterceptor", function ($q, $rootScope, $timeout) {
     return {
         request: function (config) {
