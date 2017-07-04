@@ -39,31 +39,36 @@ $sqlCreateEventsTable = "CREATE TABLE IF NOT EXISTS events (
   event_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )";
   
+  // Table "users_buff" creation query
  $sqlCreateUsersBuffTable = "CREATE TABLE IF NOT EXISTS users_buff (
   tag_number INT UNSIGNED PRIMARY KEY,
   registry_number VARCHAR(10)
   )";
 
-	// Admin user insertion query
+	// Admin user insertion query and event query
 $sqlAddAdminUser = "INSERT INTO users (`tag_number`, `registry_number`, `name`, `access_level`, `password`, `cellphone_credit`, `card_credit`, `web_token`) VALUES (0, '00000000', 'Admin', 0, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, 0, '')";
 $sqlAddUserEvent = "INSERT INTO events (`source_registry`, `target_registry`, `event_type`, `diff_cred_cellphone`, `diff_cred_tag`, `to_resolve`) VALUES (0, '00000000', 0, 0, 0, 0)";
 
-// Execution and tests
-
+// Execute query to create the databasae
 if ($conn->query($sqlCreateDatabase) === TRUE) {
 
-	$conn->close();
+	$conn->close(); // Close first connection
 	
+	// Open connection using the database batata
 	$conn = new mysqli($serverName, $userName, $password, $dbName);
 
+	// Test connection
 	if ($conn->connect_error) {
 		echo("Connection failed: " . $conn->connect_error);
 	} 
 	else {
+		// Execute queries
 		$creationResult = $conn->query($sqlCreateUsersTable) and $conn->query($sqlCreateEventsTable) and $sqlCreateUsersBuffTable;
-		
+		// Check connection
 		if ($creationResult) {
+			// Execute queries
 			$insertionResult = $conn->query($sqlAddAdminUser) and $conn->query($sqlAddUserEvent) and $conn->query($sqlCreateUsersBuffTable);
+			// Check connection
 			if ($insertionResult) echo("Insertion Successful"); 
 			else echo("Insertion Error: " . $conn->error);
 		}
@@ -71,6 +76,6 @@ if ($conn->query($sqlCreateDatabase) === TRUE) {
 	}
 }
 
-$conn->close();
+$conn->close(); // Close connection
 
 ?>
