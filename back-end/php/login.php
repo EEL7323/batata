@@ -3,7 +3,7 @@
 	include("connection.php");
 
 	// Include random generator function
-	include("randomGenerator.php");
+	include("randomgenerator.php");
 
 	// Read post data
 	$data = json_decode(file_get_contents("php://input"));

@@ -41,7 +41,6 @@ angular.module("ruServer").controller("loginCtrl", function ($scope, $http, $loc
                 })
                 .catch(function (error) {
                     $rootScope.phpError = error.data;
-                    console.log("é aqui meu amigo!");
                     $location.path("/error");
                 });
         }
