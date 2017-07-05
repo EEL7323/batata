@@ -15,11 +15,11 @@
 	if ($conn->connect_error) echo ("Error - Authentication error - Connection failed: " . $conn->connect_error);
 	else {
 		$i = 0;
-		$sqlAdapt = " registry_number = '";
+		$sqlAdapt = " `registry_number` = '";
 		// Mount query with all the users to be deleted
 		while ($i < sizeof($usersToDelete)) {
 			$sqlAdapt = $sqlAdapt . $usersToDelete[$i];
-			if ($i != (sizeof($usersToDelete)-1)) $sqlAdapt = $sqlAdapt . "' OR registry_number = '";
+			if ($i != (sizeof($usersToDelete)-1)) $sqlAdapt = $sqlAdapt . "' OR `registry_number` = '";
 			else $sqlAdapt = $sqlAdapt . "'";
 			$i = $i + 1;
 		}
@@ -43,14 +43,15 @@
 				while($row = $result->fetch_assoc()) {
 					$registryNumber = $row["registry_number"];
 					$tagNumber = $row["tag_number"];
-					$i = $i + 1;
 					$insertionQuery .= "(" . $tagNumber . ", '" . $registryNumber . "')";
-					if ($i != ($resultsFound - 1)) $insertionQuery . ", ";
+					if ($i != ($resultsFound - 1)) $insertionQuery .= ", ";
+					$i = $i + 1;
 				}
+				
 				// Execute query
 				$conn->query($insertionQuery);
 				// Check connection
-				if ($conn->error) echo "Error - Server error while updating database: " . $conn->error;
+				if ($conn->error) echo "Error - Server error while updating database: " . $conn->error . $insertionQuery;
 				else {
 					// Execute query
 					$conn->query($sqlDeleteUser);

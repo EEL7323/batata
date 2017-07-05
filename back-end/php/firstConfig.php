@@ -46,7 +46,7 @@ $sqlCreateEventsTable = "CREATE TABLE IF NOT EXISTS events (
   )";
 
 	// Admin user insertion query and event query
-$sqlAddAdminUser = "INSERT INTO users (`tag_number`, `registry_number`, `name`, `access_level`, `password`, `cellphone_credit`, `card_credit`, `web_token`) VALUES (0, '00000000', 'Admin', 0, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, 0, '')";
+$sqlAddAdminUser = "INSERT INTO users (`tag_number`, `registry_number`, `name`, `access_level`, `password`, `cellphone_credit`, `card_credit`, `web_token`) VALUES (0, '00000000', 'Admin', 0, 'c6bcef53d57d8a756d50e36f2ea87a5de4522859', 0, 0, '')";
 $sqlAddUserEvent = "INSERT INTO events (`source_registry`, `target_registry`, `event_type`, `diff_cred_cellphone`, `diff_cred_tag`, `to_resolve`) VALUES (0, '00000000', 0, 0, 0, 0)";
 
 // Execute query to create the databasae

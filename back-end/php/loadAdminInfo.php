@@ -78,6 +78,7 @@
 							// Write lastDinner of output return
 							$return["lastDinner"] = $result["COUNT(*)"];
 						}
+					}
 				}
 			}
 		}

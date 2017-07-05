@@ -19,7 +19,7 @@ angular.module("ruServer").controller("studentAddCreditsCtrl", function ($scope,
     // Variable created to simulate the input of a credit card (the user must use this number to approve the transaction)
     var _simulatedCard = {
         creditCardNumber: 1111222233334444,
-        creditCardExpirationDate: new Date(2017, 11, 1, 0, 0, 0, 0),
+        creditCardExpirationDate: new Date(2017, 10, 1, 0, 0, 0, 0),
         creditCardSecurityCode: 123
     };
 
